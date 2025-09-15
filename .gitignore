@@ -1,4 +1,9 @@
 # Ignore database connection file
 config/config.php
+# Ignore database connection file
+config/config.php
+
+.env
+
 helpers/site-url.php
 .env
