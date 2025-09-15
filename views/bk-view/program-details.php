@@ -178,7 +178,7 @@ FROM program_pamphlets WHERE program_id = ?");
             </p>
 
             <div class="mb-4">
-                <h2 class="h4 mb-4" style="font-family: 'Inter', sans-serif; font-weight: 400; opacity: 0.9;">Sponsorship Pitch</h2>
+                
                 
             </div>
         </div>
