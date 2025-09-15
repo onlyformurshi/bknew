@@ -801,7 +801,7 @@ FROM program_pamphlets WHERE program_id = ?");
             <?php endif; ?>
         <?php else: ?>
             <div class="alert alert-info my-5 text-center" style="font-size:1.2rem;">
-                There is no program details.
+                There is no sponsorship details.
             </div>
         <?php endif; ?>
     </div>
