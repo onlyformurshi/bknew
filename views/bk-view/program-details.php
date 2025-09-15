@@ -291,6 +291,36 @@ FROM program_pamphlets WHERE program_id = ?");
                                 </div>
 
                             </div>
+                            <!-- Participants Progress -->
+                        <?php
+                        // Fetch current participant count for this program
+                        $current = 0;
+                        try {
+                            $countStmt = $pdo->prepare("SELECT COUNT(*) FROM participants WHERE program_id = ?");
+                            $countStmt->execute([$programId]);
+                            $current = (int)$countStmt->fetchColumn();
+                        } catch (PDOException $e) {
+                            $current = 0;
+                        }
+
+                        $max = $program['max_participants'] ?? 0;
+                        $percentage = ($max > 0) ? round(($current / $max) * 100) : 0;
+                        ?>
+
+                        <div class="progress-section mt-4">
+                            <h3 class="section-subtitle">Participant Progress</h3>
+                            <div class="progress-stats">
+                                <div class="stat-item">
+                                    <div class="stat-number"><?= $percentage ?>%</div>
+                                    <div class="stat-label">Registration Complete</div>
+                                    <div class="progress-bar-custom">
+                                        <div class="progress-fill" style="width: <?= $percentage ?>%"></div>
+                                    </div>
+                                </div>
+                                
+
+                            </div>
+                        </div>
                             <!-- Program Schedule Sessions List -->
                             <?php if (!empty($sessions)): ?>
                                 <div class="mt-4">

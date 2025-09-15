@@ -19,6 +19,7 @@ try {
     $program = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if (!$program) {
+        
         die("Program not found");
     }
     
@@ -29,6 +30,16 @@ try {
     
 } catch (Exception $e) {
     die("Database error: " . $e->getMessage());
+}
+
+// Fetch current participant count for this program
+$current = 0;
+try {
+    $countStmt = $pdo->prepare("SELECT COUNT(*) FROM participants WHERE program_id = ?");
+    $countStmt->execute([$program_id]);
+    $current = (int)$countStmt->fetchColumn();
+} catch (PDOException $e) {
+    $current = 0;
 }
 
 // Format dates for display
@@ -842,7 +853,7 @@ function formatTime($dateString) {
                     </div>
                     <div class="meta-item">
                         <i class="fas fa-users"></i>
-                        <span id="program-participants"><?= htmlspecialchars($program['current_participants']) ?>/<?= htmlspecialchars($program['max_participants']) ?> participants</span>
+                        <span id="program-participants"><?= htmlspecialchars($current) ?>/<?= htmlspecialchars($program['max_participants']) ?> participants</span>
                     </div>
                     <?php if (!empty($sessions)): ?>
                     <div class="meta-item">
