@@ -26,8 +26,7 @@
             My Profile
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
-            <li><a class="dropdown-item" href="<?= SITE_URL ?>/views/sponsors-program-view/settings.php"><i class="fas fa-cog me-2"></i> Settings</a></li>
+            <li><a class="dropdown-item" href="<?= SITE_URL ?>/views/sponsors-program-view/profile.php"><i class="fas fa-cog me-2"></i> Profile</a></li>
             <li><a class="dropdown-item" href="<?= SITE_URL ?>/logout.php"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
           </ul>
         </li>
