@@ -581,7 +581,7 @@ if ($showPending) {
     <div class="container">
       <div class="row justify-content-center text-center hero-content">
         <div class="col-lg-8">
-          <h1 class="display-5 fw-bold mb-3">Partner With Us</h1>
+          <h1 class="display-5 fw-bold mb-3">Sponsor With Us</h1>
           <p class="lead mb-4">Join our mission to create meaningful experiences and reach your target audience through strategic event sponsorship</p>
           <div class="d-flex justify-content-center gap-4 flex-wrap">
             <div class="text-center">
