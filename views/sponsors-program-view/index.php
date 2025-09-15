@@ -10,28 +10,14 @@ $centres = $pdo->query("SELECT id, centre_name FROM centres WHERE status = 'Acti
 
 // Get filter values from GET
 $filters = [
-  'program_number' => $_GET['program_number'] ?? '',
-  'program_title' => $_GET['program_title'] ?? '',
   'country_id' => $_GET['country_id'] ?? '',
   'regional_id' => $_GET['regional_id'] ?? '',
-  'centre_id' => $_GET['centre_id'] ?? '',
-  'instructor' => $_GET['instructor'] ?? '',
-  'date_from' => $_GET['date_from'] ?? '',
-  'date_to' => $_GET['date_to'] ?? '',
-  'program_type' => $_GET['program_type'] ?? ''
+  'centre_id' => $_GET['centre_id'] ?? ''
 ];
 
 // Build WHERE clause
 $where = [];
 $params = [];
-if ($filters['program_number']) {
-  $where[] = "programs.program_number = :program_number";
-  $params['program_number'] = $filters['program_number'];
-}
-if ($filters['program_title']) {
-  $where[] = "programs.title LIKE :program_title";
-  $params['program_title'] = "%{$filters['program_title']}%";
-}
 if ($filters['country_id']) {
   $where[] = "programs.country_id = :country_id";
   $params['country_id'] = $filters['country_id'];
@@ -43,31 +29,6 @@ if ($filters['regional_id']) {
 if ($filters['centre_id']) {
   $where[] = "programs.centre_id = :centre_id";
   $params['centre_id'] = $filters['centre_id'];
-}
-if ($filters['instructor']) {
-  $where[] = "programs.instructor_name LIKE :instructor";
-  $params['instructor'] = "%{$filters['instructor']}%";
-}
-// Fix: Use session date from program_sessions_times if start_datetime/end_datetime not in programs table
-if ($filters['date_from']) {
-  $where[] = "EXISTS (
-    SELECT 1 FROM program_sessions_times pst
-    WHERE pst.program_id = programs.id
-      AND pst.session_start >= :date_from
-  )";
-  $params['date_from'] = $filters['date_from'] . " 00:00:00";
-}
-if ($filters['date_to']) {
-  $where[] = "EXISTS (
-    SELECT 1 FROM program_sessions_times pst
-    WHERE pst.program_id = programs.id
-      AND pst.session_end <= :date_to
-  )";
-  $params['date_to'] = $filters['date_to'] . " 23:59:59";
-}
-if ($filters['program_type'] !== '') {
-  $where[] = "programs.is_free = :is_free";
-  $params['is_free'] = $filters['program_type'];
 }
 
 // Add status filter based on user access
@@ -628,24 +589,7 @@ if ($showPending) {
               <div class="filter-dropdown-menu" id="filterDropdownMenu">
                 <form method="GET" id="filterForm">
                   <div class="row">
-                    <div class="col-md-3 mb-3">
-                      <label for="program_number">Program Number</label>
-                      <select class="form-control select2" id="program_number" name="program_number">
-                        <option value="">All Program Numbers</option>
-                        <?php foreach ($programNumbers as $pn): ?>
-                          <option value="<?= htmlspecialchars($pn['program_number']) ?>"
-                            <?= (isset($_GET['program_number']) && $_GET['program_number'] == $pn['program_number']) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($pn['program_number']) ?>
-                          </option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="program_title">Program Title</label>
-                      <input type="text" id="program_title" name="program_title" class="form-control" placeholder="Enter program title"
-                        value="<?= isset($_GET['program_title']) ? htmlspecialchars($_GET['program_title']) : '' ?>">
-                    </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 mb-3">
                       <label for="country_id">Country</label>
                       <select id="country_id" name="country_id" class="form-select select2">
                         <option value="">All Countries</option>
@@ -657,7 +601,7 @@ if ($showPending) {
                         <?php endforeach; ?>
                       </select>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 mb-3">
                       <label for="regional_id">Region</label>
                       <select id="regional_id" name="regional_id" class="form-select select2">
                         <option value="">All Regions</option>
@@ -669,7 +613,7 @@ if ($showPending) {
                         <?php endforeach; ?>
                       </select>
                     </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-4 mb-3">
                       <label for="centre_id">Centre</label>
                       <select id="centre_id" name="centre_id" class="form-select select2">
                         <option value="">All Centres</option>
@@ -679,29 +623,6 @@ if ($showPending) {
                             <?= htmlspecialchars($centre['centre_name']) ?>
                           </option>
                         <?php endforeach; ?>
-                      </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="instructor">Instructor Name</label>
-                      <input type="text" id="instructor" name="instructor" class="form-control" placeholder="Enter instructor name"
-                        value="<?= isset($_GET['instructor']) ? htmlspecialchars($_GET['instructor']) : '' ?>">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="date_from">Date From</label>
-                      <input type="date" id="date_from" name="date_from" class="form-control"
-                        value="<?= isset($_GET['date_from']) ? htmlspecialchars($_GET['date_from']) : '' ?>">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="date_to">Date To</label>
-                      <input type="date" id="date_to" name="date_to" class="form-control"
-                        value="<?= isset($_GET['date_to']) ? htmlspecialchars($_GET['date_to']) : '' ?>">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="program_type">Program Type</label>
-                      <select id="program_type" name="program_type" class="form-select">
-                        <option value="">All Types</option>
-                        <option value="1" <?= (isset($_GET['program_type']) && $_GET['program_type'] == '1') ? 'selected' : '' ?>>Free</option>
-                        <option value="0" <?= (isset($_GET['program_type']) && $_GET['program_type'] == '0') ? 'selected' : '' ?>>Paid</option>
                       </select>
                     </div>
                   </div>
