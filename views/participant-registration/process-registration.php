@@ -7,10 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $full_name = trim($_POST['fullName'] ?? '');
     $mobile = trim($_POST['mobile'] ?? '');
     $place = trim($_POST['place'] ?? '');
+    $hear_about_us = trim($_POST['referralSource'] ?? ''); // <-- new field
     $terms_accepted = isset($_POST['termsAgreement']) ? 1 : 0;
 
     // Basic validation
-    if ($program_id <= 0 || $full_name === '' || $mobile === '' || $place === '' || !$terms_accepted) {
+    if ($program_id <= 0 || $full_name === '' || $mobile === '' || $place === '' || $hear_about_us === '' || !$terms_accepted) {
         die('Invalid input. Please fill all required fields and accept the terms.');
     }
 
@@ -19,14 +20,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $stmt = $pdo->prepare("INSERT INTO participants 
-            (program_id, reference_id, full_name, mobile, place, terms_accepted) 
-            VALUES (?, ?, ?, ?, ?, ?)");
+            (program_id, reference_id, full_name, mobile, place, hear_about_us, terms_accepted) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
             $program_id,
             $reference_id,
             $full_name,
             $mobile,
             $place,
+            $hear_about_us,
             $terms_accepted
         ]);
         // Redirect or show success message

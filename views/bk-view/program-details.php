@@ -145,6 +145,12 @@ FROM program_pamphlets WHERE program_id = ?");
         while ($row = $sponsorshipStmt->fetch(PDO::FETCH_ASSOC)) {
             $userSponsorships[$row['category'] . '_' . $row['item_id']] = $row;
         }
+
+        // Add this block to fetch sessions:
+        $sessions = [];
+        $sessionListStmt = $pdo->prepare("SELECT * FROM program_sessions_times WHERE program_id = ? ORDER BY session_start");
+        $sessionListStmt->execute([$programId]);
+        $sessions = $sessionListStmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         $error = "Database Error: " . $e->getMessage();
     }
@@ -285,6 +291,24 @@ FROM program_pamphlets WHERE program_id = ?");
                                 </div>
 
                             </div>
+                            <!-- Program Schedule Sessions List -->
+                            <?php if (!empty($sessions)): ?>
+                                <div class="mt-4">
+                                    <h5 class="fw-bold mb-2">Program Schedule</h5>
+                                    <ul class="list-group">
+                                        <?php foreach ($sessions as $session): ?>
+                                            <li class="list-group-item">
+                                                <span class="fw-semibold"><?= htmlspecialchars($session['session_name']) ?></span>
+                                                <br>
+                                                <small>
+                                                    <?= date('F j, Y', strtotime($session['session_start'])) ?> |
+                                                    <?= date('g:i A', strtotime($session['session_start'])) ?> - <?= date('g:i A', strtotime($session['session_end'])) ?>
+                                                </small>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <!-- Participants Progress -->
