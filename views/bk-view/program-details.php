@@ -280,7 +280,7 @@ FROM program_pamphlets WHERE program_id = ?");
                                     </div>
                                     <div class="instructor-info">
                                         <h4><?= htmlspecialchars($program['instructor_name'] ?? '') ?></h4>
-                                        <p>AI Security Specialist</p>
+
                                     </div>
                                 </div>
 
