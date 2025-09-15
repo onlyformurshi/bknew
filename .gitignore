@@ -1,0 +1,3 @@
+# Ignore database connection file
+config/config.php
+.env

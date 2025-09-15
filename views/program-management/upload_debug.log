@@ -1,0 +1,603 @@
+=== Upload Debug Log 2025-05-15 10:31:55 ===
+10:31:55 - Script started
+10:31:55 - Loading config
+08:31:55 - Config loaded
+08:31:55 - Checking database connection
+08:31:55 - Database connection OK
+08:31:55 - Request method: POST
+08:31:55 - POST data received: Array
+(
+    [program_id] => 3
+)
+
+08:31:55 - Program ID: 3
+08:31:55 - FILES data: Array
+(
+    [media_files] => Array
+        (
+            [name] => Array
+                (
+                    [0] => Laduma_Banner_-3_(2)[1].png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => D:\xampp\tmp\phpE2F4.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 621526
+                )
+
+        )
+
+)
+
+08:31:55 - Testing upload directory: ../../uploads/programs/
+08:31:55 - Absolute path: D:\xampp\htdocs\Brahmakumari\Uploads\Programs
+08:31:55 - Path exists: ../../uploads/programs/
+08:31:55 - Testing if directory is writable
+08:31:55 - Directory is writable
+08:31:55 - Total files to upload: 1
+08:31:55 - Processing file index: 0
+08:31:55 - Original file name: Laduma_Banner_-3_(2)[1].png
+08:31:55 - Temporary path: D:\xampp\tmp\phpE2F4.tmp
+08:31:55 - File exists at temp path: YES
+08:31:55 - Target path: ../../uploads/programs/1747297915_0_Laduma_Banner_-3__2__1_.png
+08:31:55 - Attempting to move uploaded file
+08:31:55 - File moved successfully
+08:31:55 - Checking if program_media table exists
+08:31:55 - Table exists: YES
+08:31:55 - Inserting record into database
+08:31:55 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747297915_0_Laduma_Banner_-3__2__1_.png)
+08:31:55 - Database insert successful
+08:31:55 - Successfully uploaded 1 of 1 files
+08:31:55 - Operation successful
+08:31:55 - Script ended
+=== Upload Debug Log 2025-05-15 10:35:10 ===
+10:35:10 - Script started
+10:35:10 - Loading config
+08:35:10 - Config loaded
+08:35:10 - Checking database connection
+08:35:10 - Database connection OK
+08:35:10 - Request method: POST
+08:35:10 - POST data received: Array
+(
+    [program_id] => 3
+)
+
+08:35:10 - Program ID: 3
+08:35:10 - FILES data: Array
+(
+    [media_files] => Array
+        (
+            [name] => Array
+                (
+                    [0] => Laduma_Banner_-3_(2)[1].png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => D:\xampp\tmp\phpDB56.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 621526
+                )
+
+        )
+
+)
+
+08:35:10 - Testing upload directory: ../../uploads/programs/
+08:35:10 - Absolute path: D:\xampp\htdocs\Brahmakumari\Uploads\Programs
+08:35:10 - Path exists: ../../uploads/programs/
+08:35:10 - Testing if directory is writable
+08:35:10 - Directory is writable
+08:35:10 - Total files to upload: 1
+08:35:10 - Processing file index: 0
+08:35:10 - Original file name: Laduma_Banner_-3_(2)[1].png
+08:35:10 - Temporary path: D:\xampp\tmp\phpDB56.tmp
+08:35:10 - File exists at temp path: YES
+08:35:10 - Target path: ../../uploads/programs/1747298110_0_Laduma_Banner_-3__2__1_.png
+08:35:10 - Attempting to move uploaded file
+08:35:10 - File moved successfully
+08:35:10 - Checking if program_media table exists
+08:35:10 - Table exists: YES
+08:35:10 - Inserting record into database
+08:35:10 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298110_0_Laduma_Banner_-3__2__1_.png)
+08:35:10 - Database insert successful
+08:35:10 - Successfully uploaded 1 of 1 files
+08:35:10 - Operation successful
+08:35:10 - Redirecting to view.php
+=== Upload Debug Log 2025-05-15 10:35:45 ===
+10:35:45 - Script started
+10:35:45 - Loading config
+08:35:45 - Config loaded
+08:35:45 - Checking database connection
+08:35:45 - Database connection OK
+08:35:45 - Request method: POST
+08:35:45 - POST data received: Array
+(
+    [program_id] => 3
+)
+
+08:35:45 - Program ID: 3
+08:35:45 - FILES data: Array
+(
+    [media_files] => Array
+        (
+            [name] => Array
+                (
+                    [0] => banner-1(1).png
+                    [1] => b1.png
+                    [2] => Laduma Hardware Online (3).png
+                    [3] => Laduma Hardware Online (2).png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                    [1] => image/png
+                    [2] => image/png
+                    [3] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => D:\xampp\tmp\php642E.tmp
+                    [1] => D:\xampp\tmp\php643E.tmp
+                    [2] => D:\xampp\tmp\php643F.tmp
+                    [3] => D:\xampp\tmp\php6440.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                    [2] => 0
+                    [3] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 82423
+                    [1] => 283044
+                    [2] => 334933
+                    [3] => 224183
+                )
+
+        )
+
+)
+
+08:35:45 - Testing upload directory: ../../uploads/programs/
+08:35:45 - Absolute path: D:\xampp\htdocs\Brahmakumari\Uploads\Programs
+08:35:45 - Path exists: ../../uploads/programs/
+08:35:45 - Testing if directory is writable
+08:35:45 - Directory is writable
+08:35:45 - Total files to upload: 4
+08:35:45 - Processing file index: 0
+08:35:45 - Original file name: banner-1(1).png
+08:35:45 - Temporary path: D:\xampp\tmp\php642E.tmp
+08:35:45 - File exists at temp path: YES
+08:35:45 - Target path: ../../uploads/programs/1747298145_0_banner-1_1_.png
+08:35:45 - Attempting to move uploaded file
+08:35:45 - File moved successfully
+08:35:45 - Checking if program_media table exists
+08:35:45 - Table exists: YES
+08:35:45 - Inserting record into database
+08:35:45 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298145_0_banner-1_1_.png)
+08:35:45 - Database insert successful
+08:35:45 - Processing file index: 1
+08:35:45 - Original file name: b1.png
+08:35:45 - Temporary path: D:\xampp\tmp\php643E.tmp
+08:35:45 - File exists at temp path: YES
+08:35:45 - Target path: ../../uploads/programs/1747298145_1_b1.png
+08:35:45 - Attempting to move uploaded file
+08:35:45 - File moved successfully
+08:35:45 - Checking if program_media table exists
+08:35:45 - Table exists: YES
+08:35:45 - Inserting record into database
+08:35:45 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298145_1_b1.png)
+08:35:45 - Database insert successful
+08:35:45 - Processing file index: 2
+08:35:45 - Original file name: Laduma Hardware Online (3).png
+08:35:45 - Temporary path: D:\xampp\tmp\php643F.tmp
+08:35:45 - File exists at temp path: YES
+08:35:45 - Target path: ../../uploads/programs/1747298145_2_Laduma_Hardware_Online__3_.png
+08:35:45 - Attempting to move uploaded file
+08:35:45 - File moved successfully
+08:35:45 - Checking if program_media table exists
+08:35:45 - Table exists: YES
+08:35:45 - Inserting record into database
+08:35:45 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298145_2_Laduma_Hardware_Online__3_.png)
+08:35:45 - Database insert successful
+08:35:45 - Processing file index: 3
+08:35:45 - Original file name: Laduma Hardware Online (2).png
+08:35:45 - Temporary path: D:\xampp\tmp\php6440.tmp
+08:35:45 - File exists at temp path: YES
+08:35:45 - Target path: ../../uploads/programs/1747298145_3_Laduma_Hardware_Online__2_.png
+08:35:45 - Attempting to move uploaded file
+08:35:45 - File moved successfully
+08:35:45 - Checking if program_media table exists
+08:35:45 - Table exists: YES
+08:35:45 - Inserting record into database
+08:35:45 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298145_3_Laduma_Hardware_Online__2_.png)
+08:35:45 - Database insert successful
+08:35:45 - Successfully uploaded 4 of 4 files
+08:35:45 - Operation successful
+08:35:45 - Redirecting to view.php
+=== Upload Debug Log 2025-05-15 10:38:12 ===
+10:38:12 - Script started
+10:38:12 - Loading config
+08:38:12 - Config loaded
+08:38:12 - Checking database connection
+08:38:12 - Database connection OK
+08:38:12 - Request method: POST
+08:38:12 - POST data received: Array
+(
+    [program_id] => 3
+)
+
+08:38:12 - Program ID: 3
+08:38:12 - FILES data: Array
+(
+    [media_files] => Array
+        (
+            [name] => Array
+                (
+                    [0] => WhatsApp Image 2025-05-06 at 09.59.04_8f68ddd2.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => D:\xampp\tmp\phpA400.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 263296
+                )
+
+        )
+
+)
+
+08:38:12 - Testing upload directory: ../../uploads/programs/
+08:38:12 - Absolute path: D:\xampp\htdocs\Brahmakumari\Uploads\Programs
+08:38:12 - Path exists: ../../uploads/programs/
+08:38:12 - Testing if directory is writable
+08:38:12 - Directory is writable
+08:38:12 - Total files to upload: 1
+08:38:12 - Processing file index: 0
+08:38:12 - Original file name: WhatsApp Image 2025-05-06 at 09.59.04_8f68ddd2.jpg
+08:38:12 - Temporary path: D:\xampp\tmp\phpA400.tmp
+08:38:12 - File exists at temp path: YES
+08:38:12 - Target path: ../../uploads/programs/1747298292_0_WhatsApp_Image_2025-05-06_at_09.59.04_8f68ddd2.jpg
+08:38:12 - Attempting to move uploaded file
+08:38:12 - File moved successfully
+08:38:12 - Checking if program_media table exists
+08:38:12 - Table exists: YES
+08:38:12 - Inserting record into database
+08:38:12 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298292_0_WhatsApp_Image_2025-05-06_at_09.59.04_8f68ddd2.jpg)
+08:38:12 - Database insert successful
+08:38:12 - Successfully uploaded 1 of 1 files
+08:38:12 - Operation successful
+08:38:12 - Redirecting to view.php
+08:38:12 - Redirecting to: view.php
+=== Upload Debug Log 2025-05-15 10:39:40 ===
+10:39:40 - Script started
+10:39:40 - Loading config
+08:39:40 - Config loaded
+08:39:40 - Checking database connection
+08:39:40 - Database connection OK
+08:39:40 - Request method: POST
+08:39:40 - POST data received: Array
+(
+    [program_id] => 3
+)
+
+08:39:40 - Program ID: 3
+08:39:40 - FILES data: Array
+(
+    [media_files] => Array
+        (
+            [name] => Array
+                (
+                    [0] => Afri-sam.png
+                    [1] => Untitled-1.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                    [1] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => D:\xampp\tmp\phpF875.tmp
+                    [1] => D:\xampp\tmp\phpF876.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 46241
+                    [1] => 46161
+                )
+
+        )
+
+)
+
+08:39:40 - Testing upload directory: ../../uploads/programs/
+08:39:40 - Absolute path: D:\xampp\htdocs\Brahmakumari\Uploads\Programs
+08:39:40 - Path exists: ../../uploads/programs/
+08:39:40 - Testing if directory is writable
+08:39:40 - Directory is writable
+08:39:40 - Total files to upload: 2
+08:39:40 - Processing file index: 0
+08:39:40 - Original file name: Afri-sam.png
+08:39:40 - Temporary path: D:\xampp\tmp\phpF875.tmp
+08:39:40 - File exists at temp path: YES
+08:39:40 - Target path: ../../uploads/programs/1747298380_0_Afri-sam.png
+08:39:40 - Attempting to move uploaded file
+08:39:40 - File moved successfully
+08:39:40 - Checking if program_media table exists
+08:39:40 - Table exists: YES
+08:39:40 - Inserting record into database
+08:39:40 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298380_0_Afri-sam.png)
+08:39:40 - Database insert successful
+08:39:40 - Processing file index: 1
+08:39:40 - Original file name: Untitled-1.png
+08:39:40 - Temporary path: D:\xampp\tmp\phpF876.tmp
+08:39:40 - File exists at temp path: YES
+08:39:40 - Target path: ../../uploads/programs/1747298380_1_Untitled-1.png
+08:39:40 - Attempting to move uploaded file
+08:39:40 - File moved successfully
+08:39:40 - Checking if program_media table exists
+08:39:40 - Table exists: YES
+08:39:40 - Inserting record into database
+08:39:40 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298380_1_Untitled-1.png)
+08:39:40 - Database insert successful
+08:39:40 - Successfully uploaded 2 of 2 files
+08:39:40 - Operation successful
+08:39:40 - Redirecting to view.php
+=== Upload Debug Log 2025-05-15 10:43:44 ===
+10:43:44 - Script started
+10:43:44 - Loading config
+08:43:44 - Config loaded
+08:43:44 - Checking database connection
+08:43:44 - Database connection OK
+08:43:44 - Request method: POST
+08:43:44 - POST data received: Array
+(
+    [program_id] => 3
+)
+
+08:43:44 - Program ID: 3
+08:43:44 - FILES data: Array
+(
+    [media_files] => Array
+        (
+            [name] => Array
+                (
+                    [0] => Laduma_Banner_-3_(2)[1].png
+                    [1] => WhatsApp Image 2025-05-06 at 09.59.04_8f68ddd2.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                    [1] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => D:\xampp\tmp\phpB3CA.tmp
+                    [1] => D:\xampp\tmp\phpB3DA.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 621526
+                    [1] => 263296
+                )
+
+        )
+
+)
+
+08:43:44 - Testing upload directory: ../../uploads/programs/
+08:43:44 - Absolute path: D:\xampp\htdocs\Brahmakumari\Uploads\Programs
+08:43:44 - Path exists: ../../uploads/programs/
+08:43:44 - Testing if directory is writable
+08:43:44 - Directory is writable
+08:43:44 - Total files to upload: 2
+08:43:44 - Processing file index: 0
+08:43:44 - Original file name: Laduma_Banner_-3_(2)[1].png
+08:43:44 - Temporary path: D:\xampp\tmp\phpB3CA.tmp
+08:43:44 - File exists at temp path: YES
+08:43:44 - Target path: ../../uploads/programs/1747298624_0_Laduma_Banner_-3__2__1_.png
+08:43:44 - Attempting to move uploaded file
+08:43:44 - File moved successfully
+08:43:44 - Checking if program_media table exists
+08:43:44 - Table exists: YES
+08:43:44 - Inserting record into database
+08:43:44 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298624_0_Laduma_Banner_-3__2__1_.png)
+08:43:44 - Database insert successful
+08:43:44 - Processing file index: 1
+08:43:44 - Original file name: WhatsApp Image 2025-05-06 at 09.59.04_8f68ddd2.jpg
+08:43:44 - Temporary path: D:\xampp\tmp\phpB3DA.tmp
+08:43:44 - File exists at temp path: YES
+08:43:44 - Target path: ../../uploads/programs/1747298624_1_WhatsApp_Image_2025-05-06_at_09.59.04_8f68ddd2.jpg
+08:43:44 - Attempting to move uploaded file
+08:43:44 - File moved successfully
+08:43:44 - Checking if program_media table exists
+08:43:44 - Table exists: YES
+08:43:44 - Inserting record into database
+08:43:44 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (3, 1747298624_1_WhatsApp_Image_2025-05-06_at_09.59.04_8f68ddd2.jpg)
+08:43:44 - Database insert successful
+08:43:44 - Successfully uploaded 2 of 2 files
+08:43:44 - Operation successful
+08:43:44 - Redirecting to view.php
+=== Upload Debug Log 2025-06-09 10:05:56 ===
+10:05:56 - Script started
+10:05:56 - Loading config
+08:05:56 - Config loaded
+08:05:56 - Checking database connection
+08:05:56 - Database connection OK
+08:05:56 - Request method: POST
+08:05:56 - POST data received: Array
+(
+    [program_id] => 54
+)
+
+08:05:56 - Program ID: 54
+08:05:56 - FILES data: Array
+(
+    [media_files] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+
+08:05:56 - ERROR: No files were uploaded
+08:05:56 - Script ended
+=== Upload Debug Log 2025-06-09 10:06:10 ===
+10:06:10 - Script started
+10:06:10 - Loading config
+08:06:10 - Config loaded
+08:06:10 - Checking database connection
+08:06:10 - Database connection OK
+08:06:10 - Request method: POST
+08:06:10 - POST data received: Array
+(
+    [program_id] => 54
+)
+
+08:06:10 - Program ID: 54
+08:06:10 - FILES data: Array
+(
+    [media_files] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 1747298292_0_WhatsApp_Image_2025-05-06_at_09.59.04_8f68ddd2.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => D:\xampp\tmp\php177A.tmp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 263296
+                )
+
+        )
+
+)
+
+08:06:10 - Testing upload directory: ../../uploads/programs/
+08:06:10 - Absolute path: D:\xampp\htdocs\Brahmakumari\Uploads\Programs
+08:06:10 - Path exists: ../../uploads/programs/
+08:06:10 - Testing if directory is writable
+08:06:10 - Directory is writable
+08:06:10 - Total files to upload: 1
+08:06:10 - Processing file index: 0
+08:06:10 - Original file name: 1747298292_0_WhatsApp_Image_2025-05-06_at_09.59.04_8f68ddd2.jpg
+08:06:10 - Temporary path: D:\xampp\tmp\php177A.tmp
+08:06:10 - File exists at temp path: YES
+08:06:10 - Target path: ../../uploads/programs/1749456370_0_1747298292_0_WhatsApp_Image_2025-05-06_at_09.59.04_8f68ddd2.jpg
+08:06:10 - Attempting to move uploaded file
+08:06:10 - File moved successfully
+08:06:10 - Checking if program_media table exists
+08:06:10 - Table exists: YES
+08:06:10 - Inserting record into database
+08:06:10 - SQL: INSERT INTO program_media (program_id, file_path) VALUES (54, 1749456370_0_1747298292_0_WhatsApp_Image_2025-05-06_at_09.59.04_8f68ddd2.jpg)
+08:06:10 - Database insert successful
+08:06:10 - Successfully uploaded 1 of 1 files
+08:06:10 - Operation successful
+08:06:10 - Redirecting to view.php
