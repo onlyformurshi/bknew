@@ -152,9 +152,7 @@ try {
                                 </button></a>
 
 
-                            <button class=" mr-2 btn btn-info" fdprocessedid="07uj0u" data-toggle="modal"
-                                data-target="#importModal">📂 Import
-                            </button>
+                            
 
                             <?php if ($canadd): ?>
                                 <a href="add.php"><button class=" mr-2 btn btn-success" fdprocessedid="07uj0u"><i
