@@ -4,6 +4,6 @@
 define('SITE_URL', 'http://localhost/bknews');
 
 // Usage example:
-// echo SITE_URsL .
+// echo SITE_URL .
 
 ?>
