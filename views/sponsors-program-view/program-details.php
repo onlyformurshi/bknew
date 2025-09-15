@@ -305,7 +305,7 @@ FROM program_pamphlets WHERE program_id = ?");
                         <!-- Participants Progress -->
                         <?php
                         $max = $program['max_participants'] ?? 0;
-                        $current = $program['current_participants'] ?? 0;
+                        $current =  12;
                         $percentage = ($max > 0) ? round(($current / $max) * 100) : 0;
                         ?>
 
@@ -319,10 +319,7 @@ FROM program_pamphlets WHERE program_id = ?");
                                         <div class="progress-fill" style="width: <?= $percentage ?>%"></div>
                                     </div>
                                 </div>
-                                <div class="stat-item">
-                                    <div class="stat-number"><?= number_format($current) ?>+</div>
-                                    <div class="stat-label">Confirmed Attendees</div>
-                                </div>
+                                
 
                             </div>
                         </div>
