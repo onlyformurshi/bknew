@@ -804,7 +804,7 @@ if ($showPending) {
     <div class="container">
       <div class="row justify-content-center text-center text-white">
         <div class="col-lg-8">
-          <h2 class="display-5 fw-bold mb-3">Ready to Sponsor With Us?</h2>
+          <h2 class="display-5 fw-bold mb-3">Ready to Partner With Us?</h2>
           <p class="lead mb-4">Join leading brands who trust us to deliver exceptional sponsorship experiences</p>
           <div class="d-flex gap-3 justify-content-center flex-wrap">
     </div>
