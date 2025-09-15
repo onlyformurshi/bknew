@@ -149,6 +149,17 @@ FROM program_pamphlets WHERE program_id = ?");
     } catch (PDOException $e) {
         $error = "Database Error: " . $e->getMessage();
     }
+
+    // Check if there's any details to display
+    $hasAnyDetails =
+        !empty($radioAds) ||
+        !empty($televisionAds) ||
+        !empty($newspaperAds) ||
+        !empty($billboardAds) ||
+        !empty($facebookAds) ||
+        !empty($instagramAds) ||
+        !empty($pamphlets) ||
+        !empty($bankAccounts);
     ?>
 
     <?php include 'Includes/nav.php';  ?>
@@ -323,470 +334,476 @@ FROM program_pamphlets WHERE program_id = ?");
     </section>
 
 
-    <?php if (!empty($radioAds)): ?>
     <div class="container">
-        <div class="marketing-section">
-            <div class="section-header">
-                <i class="fas fa-broadcast-tower"></i>
-                <span>Radio Advertisements</span>
-            </div>
-            <div class="section-content">
-                <div class="marketing-grid">
-                    <?php foreach ($radioAds as $radio): ?>
-                        <?php
-                        $remaining = floatval($radio['cost']) - floatval($radio['received_amount']);
-                        if (
-                            empty($radio['name']) ||
-                            empty($radio['cost']) ||
-                            empty($radio['contact']) ||
-                            empty($radio['remarks']) ||
-                            $remaining <= 0
-                        ) {
-                            continue;
-                        }
-                        ?>
-                        <div class="marketing-card">
-                            <div class="marketing-card-header">
-                                <div class="marketing-card-title"><?= htmlspecialchars($radio['name']) ?></div>
+        <?php if ($hasAnyDetails): ?>
+            <?php if (!empty($radioAds)): ?>
+                <div class="marketing-section">
+                    <div class="section-header">
+                        <i class="fas fa-broadcast-tower"></i>
+                        <span>Radio Advertisements</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="marketing-grid">
+                            <?php foreach ($radioAds as $radio): ?>
+                                <?php
+                                $remaining = floatval($radio['cost']) - floatval($radio['received_amount']);
+                                if (
+                                    empty($radio['name']) ||
+                                    empty($radio['cost']) ||
+                                    empty($radio['contact']) ||
+                                    empty($radio['remarks']) ||
+                                    $remaining <= 0
+                                ) {
+                                    continue;
+                                }
+                                ?>
+                                <div class="marketing-card">
+                                    <div class="marketing-card-header">
+                                        <div class="marketing-card-title"><?= htmlspecialchars($radio['name']) ?></div>
 
-                            </div>
-                            <div class="marketing-card-body">
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Contact</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($radio['contact']) ?></div>
-                                </div>
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Remarks</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($radio['remarks']) ?></div>
-                                </div>
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Total</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($radio['cost']) ?></div>
-                                </div>
-                                <div class="marketing-card-cost">
-                                    $<?= number_format($remaining, 2) ?>
-                                    <span class="text-muted small">(Remaining)</span>
-                                </div>
-                                <div class="sponsor-section">
-                                    <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
-                                    <!-- Radio Advertisements -->
-                                    <button class="sponsor-btn"
-                                        data-program-id="<?= $programId ?>"
-                                        data-category="radio_advertisements"
-                                        data-item-id="<?= $radio['id'] ?>">
-                                        <i class="fas fa-hand-holding-heart"></i>
-                                        Sponsor Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php endif; ?>
-
-    <div class="container">
-        <div class="marketing-section">
-            <div class="section-header">
-                <i class="fas fa-tv"></i>
-                <span>Television Advertisements</span>
-            </div>
-            <div class="section-content">
-                <div class="marketing-grid">
-                    <?php foreach ($televisionAds as $tv): ?>
-                        <?php
-                        $remaining = floatval($tv['cost']) - floatval($tv['received_amount']);
-                        if (
-                            empty($tv['name']) ||
-                            empty($tv['cost']) ||
-                            empty($tv['contact']) ||
-                            empty($tv['remarks']) ||
-                            $remaining <= 0
-                        ) {
-                            continue;
-                        }
-                        ?>
-                        <div class="marketing-card">
-                            <div class="marketing-card-header">
-                                <div class="marketing-card-title"><?= htmlspecialchars($tv['name']) ?></div>
-
-                            </div>
-                            <div class="marketing-card-body">
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Contact</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($tv['contact']) ?></div>
-                                </div>
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Remarks</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($tv['remarks']) ?></div>
-                                </div>
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Total</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($tv['cost']) ?></div>
-                                </div>
-                                <div class="marketing-card-cost">
-                                    $<?= number_format($remaining, 2) ?>
-                                    <span class="text-muted small">(Remaining)</span>
-                                </div>
-                                <div class="sponsor-section">
-                                    <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
-                                    <!-- Television Advertisements -->
-                                    <button class="sponsor-btn"
-                                        data-program-id="<?= $programId ?>"
-                                        data-category="television_advertisements"
-                                        data-item-id="<?= $tv['id'] ?>">
-                                        <i class="fas fa-hand-holding-heart"></i>
-                                        Sponsor Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="marketing-section">
-            <div class="section-header">
-                <i class="fas fa-newspaper"></i>
-                <span>Newspaper Advertisements</span>
-            </div>
-            <div class="section-content">
-                <div class="marketing-grid">
-                    <?php foreach ($newspaperAds as $news): ?>
-                        <?php
-                        $remaining = floatval($news['cost']) - floatval($news['received_amount']);
-                        if (
-                            empty($news['name']) ||
-                            empty($news['cost']) ||
-                            empty($news['contact']) ||
-                            empty($news['remarks']) ||
-                            $remaining <= 0
-                        ) {
-                            continue;
-                        }
-                        ?>
-                        <div class="marketing-card">
-                            <div class="marketing-card-header">
-                                <div class="marketing-card-title"><?= htmlspecialchars($news['name']) ?></div>
-
-                            </div>
-                            <div class="marketing-card-body">
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Contact</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($news['contact']) ?></div>
-                                </div>
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Remarks</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($news['remarks']) ?></div>
-                                </div>
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Total</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($news['cost']) ?></div>
-                                </div>
-                                <div class="marketing-card-cost">
-                                    $<?= number_format($remaining, 2) ?>
-                                    <span class="text-muted small">(Remaining)</span>
-                                </div>
-                                <div class="sponsor-section">
-                                    <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
-                                    <!-- Newspaper Advertisements -->
-                                    <button class="sponsor-btn"
-                                        data-program-id="<?= $programId ?>"
-                                        data-category="newspaper_advertisements"
-                                        data-item-id="<?= $news['id'] ?>">
-                                        <i class="fas fa-hand-holding-heart"></i>
-                                        Sponsor Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="marketing-section">
-            <div class="section-header">
-                <i class="fas fa-building"></i>
-                <span>Billboard Advertisements</span>
-            </div>
-            <div class="section-content">
-                <div class="marketing-grid">
-                    <?php foreach ($billboardAds as $bill): ?>
-                        <?php
-                        $remaining = floatval($bill['cost']) - floatval($bill['received_amount']);
-                        if (
-                            empty($bill['agency_name']) ||
-                            empty($bill['cost']) ||
-                            $remaining <= 0
-                        ) {
-                            continue;
-                        }
-                        ?>
-                        <div class="marketing-card">
-                            <div class="marketing-card-header">
-                                <div class="marketing-card-title"><?= htmlspecialchars($bill['agency_name']) ?></div>
-                                
-                            </div>
-                            
-                            <div class="marketing-card-body">
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Total</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($bill['cost']) ?></div>
-                                </div>
-                                <div class="marketing-card-cost">
-                                    $<?= number_format($remaining, 2) ?>
-                                    <span class="text-muted small">(Remaining)</span>
-                                </div>
-                                <div class="sponsor-section">
-                                    <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
-                                    <!-- Billboard Advertisements -->
-                                    <button class="sponsor-btn"
-                                        data-program-id="<?= $programId ?>"
-                                        data-category="billboard_advertisements"
-                                        data-item-id="<?= $bill['id'] ?>">
-                                        <i class="fas fa-hand-holding-heart"></i>
-                                        Sponsor Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="marketing-section">
-            <div class="section-header">
-                <i class="fab fa-facebook"></i>
-                <span>Facebook Advertisements</span>
-            </div>
-            <div class="section-content">
-                <div class="marketing-grid">
-                    <?php foreach ($facebookAds as $fb): ?>
-                        <?php
-                        $remaining = floatval($fb['cost']) - floatval($fb['received_amount']);
-                        if (
-                            empty($fb['name']) ||
-                            empty($fb['cost']) ||
-                            $remaining <= 0
-                        ) {
-                            continue;
-                        }
-                        ?>
-                        <div class="marketing-card">
-                            <div class="marketing-card-header">
-                                <div class="marketing-card-title"><?= htmlspecialchars($fb['name']) ?></div>
-                                
-                            </div>
-                            <div class="marketing-card-body">
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Total</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($fb['cost']) ?></div>
-                                <div class="marketing-card-cost">
-                                    $<?= number_format($remaining, 2) ?>
-                                    <span class="text-muted small">(Remaining)</span>
-                                </div>
-                                <div class="sponsor-section">
-                                    <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
-                                    <!-- Facebook Advertisements -->
-                                    <button class="sponsor-btn"
-                                        data-program-id="<?= $programId ?>"
-                                        data-category="facebook_advertisements"
-                                        data-item-id="<?= $fb['id'] ?>">
-                                        <i class="fas fa-hand-holding-heart"></i>
-                                        Sponsor Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="marketing-section">
-            <div class="section-header">
-                <i class="fab fa-instagram"></i>
-                <span>Instagram Advertisements</span>
-            </div>
-            <div class="section-content">
-                <div class="marketing-grid">
-                    <?php foreach ($instagramAds as $insta): ?>
-                        <?php
-                        $remaining = floatval($insta['cost']) - floatval($insta['received_amount']);
-                        if (
-                            empty($insta['name']) ||
-                            empty($insta['cost']) ||
-                            $remaining <= 0
-                        ) {
-                            continue;
-                        }
-                        ?>
-                        <div class="marketing-card">
-                            <div class="marketing-card-header">
-                                <div class="marketing-card-title"><?= htmlspecialchars($insta['name']) ?></div>
-                                
-                            </div>
-                            <div class="marketing-card-body">
-                                <div class="marketing-detail">
-                                    <div class="marketing-detail-label">Total</div>
-                                    <div class="marketing-detail-value"><?= htmlspecialchars($insta['cost']) ?></div>
-                                <div class="marketing-card-cost">
-                                    $<?= number_format($remaining, 2) ?>
-                                    <span class="text-muted small">(Remaining)</span>
-                                </div>
-                                <div class="sponsor-section">
-                                    <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
-                                    <!-- Instagram Advertisements -->
-                                    <button class="sponsor-btn"
-                                        data-program-id="<?= $programId ?>"
-                                        data-category="instagram_advertisements"
-                                        data-item-id="<?= $insta['id'] ?>">
-                                        <i class="fas fa-hand-holding-heart"></i>
-                                        Sponsor Now
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="marketing-section">
-            <div class="section-header">
-                <i class="fas fa-file-alt"></i>
-                <span>Pamphlet Details</span>
-            </div>
-            <div class="section-content">
-                <div class="row g-4">
-                    <?php foreach ($pamphlets as $pamphlet): ?>
-                        <?php
-                        $totalAmount =
-                            floatval($pamphlet['pamphlet_designer_cost']) +
-                            floatval($pamphlet['pamphlet_printing_cost']) +
-                            floatval($pamphlet['pamphlet_distribution_cost']);
-                        $remaining = $totalAmount - floatval($pamphlet['received_amount']);
-                        if ($remaining <= 0) {
-                            continue;
-                        }
-                        ?>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm pamphlet-card">
-                                <div class="card-body">
-                                    <h5 class="card-title mb-3">Pamphlet</h5>
-                                    <ul class="list-group list-group-flush mb-3">
-                                        <li class="list-group-item">
-                                            <strong>Designer:</strong> <?= htmlspecialchars($pamphlet['pamphlet_designer_name']) ?><br>
-                                            <strong>Cost:</strong> $<?= htmlspecialchars($pamphlet['pamphlet_designer_cost']) ?><br>
-                                            <?php if (!empty($pamphlet['pamphlet_designer_invoice'])): ?>
-                                                <a href="<?= htmlspecialchars($pamphlet['pamphlet_designer_invoice']) ?>" target="_blank">Designer Invoice</a>
-                                            <?php endif; ?>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Printer:</strong> <?= htmlspecialchars($pamphlet['pamphlet_printer_name']) ?><br>
-                                            <strong>Cost:</strong> $<?= htmlspecialchars($pamphlet['pamphlet_printing_cost']) ?><br>
-                                            <?php if (!empty($pamphlet['pamphlet_printing_invoice'])): ?>
-                                                <a href="<?= htmlspecialchars($pamphlet['pamphlet_printing_invoice']) ?>" target="_blank">Printing Invoice</a>
-                                            <?php endif; ?>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Distributor:</strong> <?= htmlspecialchars($pamphlet['pamphlet_distributor_name']) ?><br>
-                                            <strong>Cost:</strong> $<?= htmlspecialchars($pamphlet['pamphlet_distribution_cost']) ?><br>
-                                            <?php if (!empty($pamphlet['pamphlet_distribution_invoice'])): ?>
-                                                <a href="<?= htmlspecialchars($pamphlet['pamphlet_distribution_invoice']) ?>" target="_blank">Distribution Invoice</a>
-                                            <?php endif; ?>
-                                        </li>
-                                    </ul>
-                                    <div class="mb-3">
-                                        <strong>Total Amount:</strong> $<?= number_format($totalAmount, 2) ?><br>
+                                    </div>
+                                    <div class="marketing-card-body">
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Contact</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($radio['contact']) ?></div>
+                                        </div>
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Remarks</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($radio['remarks']) ?></div>
+                                        </div>
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Total</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($radio['cost']) ?></div>
+                                        </div>
                                         <div class="marketing-card-cost">
                                             $<?= number_format($remaining, 2) ?>
                                             <span class="text-muted small">(Remaining)</span>
                                         </div>
-                                    </div>
-                                    <div class="sponsor-section">
-                                        <input type="number" class="sponsor-amount" placeholder="Sponsorship Amount" min="1" max="<?= $remaining ?>">
-                                        <!-- Pamphlet -->
-                                        <button class="sponsor-btn"
-                                            data-program-id="<?= $programId ?>"
-                                            data-category="pamphlet"
-                                            data-item-id="<?= $pamphlet['id'] ?>">
-                                            <i class="fas fa-hand-holding-heart"></i>
-                                            Sponsor Now
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container my-5">
-        <div class="marketing-section">
-            <div class="section-header">
-                <i class="fas fa-university"></i>
-                <span>Account Information</span>
-            </div>
-            <div class="section-content">
-                <div class="row g-4">
-                    <?php foreach ($bankAccounts as $account): ?>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm border-primary">
-                                <div class="card-body">
-                                    <h5 class="card-title text-primary mb-3">
-                                        <?= htmlspecialchars($account['account_holder_name']) ?>
-                                    </h5>
-                                    <ul class="list-group list-group-flush mb-3">
-                                        <li class="list-group-item">
-                                            <strong>Bank:</strong> <?= htmlspecialchars($account['bank_name']) ?>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Account Number:</strong> <?= htmlspecialchars($account['account_number']) ?>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>IFSC Code:</strong> <?= htmlspecialchars($account['ifsc_code']) ?>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Branch:</strong> <?= htmlspecialchars($account['branch']) ?>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>UPI ID:</strong> <?= htmlspecialchars($account['upi_id']) ?>
-                                        </li>
-                                    </ul>
-                                    <div class="text-muted small">
-                                        Added: <?= htmlspecialchars($account['created_at']) ?>
+                                        <div class="sponsor-section">
+                                            <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
+                                            <!-- Radio Advertisements -->
+                                            <button class="sponsor-btn"
+                                                data-program-id="<?= $programId ?>"
+                                                data-category="radio_advertisements"
+                                                data-item-id="<?= $radio['id'] ?>">
+                                                <i class="fas fa-hand-holding-heart"></i>
+                                                Sponsor Now
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            <?php endforeach; ?>
                         </div>
-                    <?php endforeach; ?>
-                    <?php if (empty($bankAccounts)): ?>
-                        <div class="col-12">
-                            <div class="alert alert-info">No account information available for this program.</div>
-                        </div>
-                    <?php endif; ?>
+                    </div>
                 </div>
+            <?php endif; ?>
+
+            <?php if (!empty($televisionAds)): ?>
+                <div class="marketing-section">
+                    <div class="section-header">
+                        <i class="fas fa-tv"></i>
+                        <span>Television Advertisements</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="marketing-grid">
+                            <?php foreach ($televisionAds as $tv): ?>
+                                <?php
+                                $remaining = floatval($tv['cost']) - floatval($tv['received_amount']);
+                                if (
+                                    empty($tv['name']) ||
+                                    empty($tv['cost']) ||
+                                    empty($tv['contact']) ||
+                                    empty($tv['remarks']) ||
+                                    $remaining <= 0
+                                ) {
+                                    continue;
+                                }
+                                ?>
+                                <div class="marketing-card">
+                                    <div class="marketing-card-header">
+                                        <div class="marketing-card-title"><?= htmlspecialchars($tv['name']) ?></div>
+
+                                    </div>
+                                    <div class="marketing-card-body">
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Contact</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($tv['contact']) ?></div>
+                                        </div>
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Remarks</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($tv['remarks']) ?></div>
+                                        </div>
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Total</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($tv['cost']) ?></div>
+                                        </div>
+                                        <div class="marketing-card-cost">
+                                            $<?= number_format($remaining, 2) ?>
+                                            <span class="text-muted small">(Remaining)</span>
+                                        </div>
+                                        <div class="sponsor-section">
+                                            <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
+                                            <!-- Television Advertisements -->
+                                            <button class="sponsor-btn"
+                                                data-program-id="<?= $programId ?>"
+                                                data-category="television_advertisements"
+                                                data-item-id="<?= $tv['id'] ?>">
+                                                <i class="fas fa-hand-holding-heart"></i>
+                                                Sponsor Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($newspaperAds)): ?>
+                <div class="marketing-section">
+                    <div class="section-header">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Newspaper Advertisements</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="marketing-grid">
+                            <?php foreach ($newspaperAds as $news): ?>
+                                <?php
+                                $remaining = floatval($news['cost']) - floatval($news['received_amount']);
+                                if (
+                                    empty($news['name']) ||
+                                    empty($news['cost']) ||
+                                    empty($news['contact']) ||
+                                    empty($news['remarks']) ||
+                                    $remaining <= 0
+                                ) {
+                                    continue;
+                                }
+                                ?>
+                                <div class="marketing-card">
+                                    <div class="marketing-card-header">
+                                        <div class="marketing-card-title"><?= htmlspecialchars($news['name']) ?></div>
+
+                                    </div>
+                                    <div class="marketing-card-body">
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Contact</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($news['contact']) ?></div>
+                                        </div>
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Remarks</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($news['remarks']) ?></div>
+                                        </div>
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Total</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($news['cost']) ?></div>
+                                        </div>
+                                        <div class="marketing-card-cost">
+                                            $<?= number_format($remaining, 2) ?>
+                                            <span class="text-muted small">(Remaining)</span>
+                                        </div>
+                                        <div class="sponsor-section">
+                                            <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
+                                            <!-- Newspaper Advertisements -->
+                                            <button class="sponsor-btn"
+                                                data-program-id="<?= $programId ?>"
+                                                data-category="newspaper_advertisements"
+                                                data-item-id="<?= $news['id'] ?>">
+                                                <i class="fas fa-hand-holding-heart"></i>
+                                                Sponsor Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($billboardAds)): ?>
+                <div class="marketing-section">
+                    <div class="section-header">
+                        <i class="fas fa-building"></i>
+                        <span>Billboard Advertisements</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="marketing-grid">
+                            <?php foreach ($billboardAds as $bill): ?>
+                                <?php
+                                $remaining = floatval($bill['cost']) - floatval($bill['received_amount']);
+                                if (
+                                    empty($bill['agency_name']) ||
+                                    empty($bill['cost']) ||
+                                    $remaining <= 0
+                                ) {
+                                    continue;
+                                }
+                                ?>
+                                <div class="marketing-card">
+                                    <div class="marketing-card-header">
+                                        <div class="marketing-card-title"><?= htmlspecialchars($bill['agency_name']) ?></div>
+                                        
+                                    </div>
+                                    
+                                    <div class="marketing-card-body">
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Total</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($bill['cost']) ?></div>
+                                        </div>
+                                        <div class="marketing-card-cost">
+                                            $<?= number_format($remaining, 2) ?>
+                                            <span class="text-muted small">(Remaining)</span>
+                                        </div>
+                                        <div class="sponsor-section">
+                                            <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
+                                            <!-- Billboard Advertisements -->
+                                            <button class="sponsor-btn"
+                                                data-program-id="<?= $programId ?>"
+                                                data-category="billboard_advertisements"
+                                                data-item-id="<?= $bill['id'] ?>">
+                                                <i class="fas fa-hand-holding-heart"></i>
+                                                Sponsor Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($facebookAds)): ?>
+                <div class="marketing-section">
+                    <div class="section-header">
+                        <i class="fab fa-facebook"></i>
+                        <span>Facebook Advertisements</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="marketing-grid">
+                            <?php foreach ($facebookAds as $fb): ?>
+                                <?php
+                                $remaining = floatval($fb['cost']) - floatval($fb['received_amount']);
+                                if (
+                                    empty($fb['name']) ||
+                                    empty($fb['cost']) ||
+                                    $remaining <= 0
+                                ) {
+                                    continue;
+                                }
+                                ?>
+                                <div class="marketing-card">
+                                    <div class="marketing-card-header">
+                                        <div class="marketing-card-title"><?= htmlspecialchars($fb['name']) ?></div>
+                                        
+                                    </div>
+                                    <div class="marketing-card-body">
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Total</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($fb['cost']) ?></div>
+                                        <div class="marketing-card-cost">
+                                            $<?= number_format($remaining, 2) ?>
+                                            <span class="text-muted small">(Remaining)</span>
+                                        </div>
+                                        <div class="sponsor-section">
+                                            <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
+                                            <!-- Facebook Advertisements -->
+                                            <button class="sponsor-btn"
+                                                data-program-id="<?= $programId ?>"
+                                                data-category="facebook_advertisements"
+                                                data-item-id="<?= $fb['id'] ?>">
+                                                <i class="fas fa-hand-holding-heart"></i>
+                                                Sponsor Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($instagramAds)): ?>
+                <div class="marketing-section">
+                    <div class="section-header">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram Advertisements</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="marketing-grid">
+                            <?php foreach ($instagramAds as $insta): ?>
+                                <?php
+                                $remaining = floatval($insta['cost']) - floatval($insta['received_amount']);
+                                if (
+                                    empty($insta['name']) ||
+                                    empty($insta['cost']) ||
+                                    $remaining <= 0
+                                ) {
+                                    continue;
+                                }
+                                ?>
+                                <div class="marketing-card">
+                                    <div class="marketing-card-header">
+                                        <div class="marketing-card-title"><?= htmlspecialchars($insta['name']) ?></div>
+                                        
+                                    </div>
+                                    <div class="marketing-card-body">
+                                        <div class="marketing-detail">
+                                            <div class="marketing-detail-label">Total</div>
+                                            <div class="marketing-detail-value"><?= htmlspecialchars($insta['cost']) ?></div>
+                                        <div class="marketing-card-cost">
+                                            $<?= number_format($remaining, 2) ?>
+                                            <span class="text-muted small">(Remaining)</span>
+                                        </div>
+                                        <div class="sponsor-section">
+                                            <input type="number" class="sponsor-amount" placeholder="Amount" min="1" max="<?= $remaining ?>">
+                                            <!-- Instagram Advertisements -->
+                                            <button class="sponsor-btn"
+                                                data-program-id="<?= $programId ?>"
+                                                data-category="instagram_advertisements"
+                                                data-item-id="<?= $insta['id'] ?>">
+                                                <i class="fas fa-hand-holding-heart"></i>
+                                                Sponsor Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($pamphlets)): ?>
+                <div class="marketing-section">
+                    <div class="section-header">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Pamphlet Details</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="row g-4">
+                            <?php foreach ($pamphlets as $pamphlet): ?>
+                                <?php
+                                $totalAmount =
+                                    floatval($pamphlet['pamphlet_designer_cost']) +
+                                    floatval($pamphlet['pamphlet_printing_cost']) +
+                                    floatval($pamphlet['pamphlet_distribution_cost']);
+                                $remaining = $totalAmount - floatval($pamphlet['received_amount']);
+                                if ($remaining <= 0) {
+                                    continue;
+                                }
+                                ?>
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="card h-100 shadow-sm pamphlet-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-3">Pamphlet</h5>
+                                            <ul class="list-group list-group-flush mb-3">
+                                                <li class="list-group-item">
+                                                    <strong>Designer:</strong> <?= htmlspecialchars($pamphlet['pamphlet_designer_name']) ?><br>
+                                                    <strong>Cost:</strong> $<?= htmlspecialchars($pamphlet['pamphlet_designer_cost']) ?><br>
+                                                    <?php if (!empty($pamphlet['pamphlet_designer_invoice'])): ?>
+                                                        <a href="<?= htmlspecialchars($pamphlet['pamphlet_designer_invoice']) ?>" target="_blank">Designer Invoice</a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>Printer:</strong> <?= htmlspecialchars($pamphlet['pamphlet_printer_name']) ?><br>
+                                                    <strong>Cost:</strong> $<?= htmlspecialchars($pamphlet['pamphlet_printing_cost']) ?><br>
+                                                    <?php if (!empty($pamphlet['pamphlet_printing_invoice'])): ?>
+                                                        <a href="<?= htmlspecialchars($pamphlet['pamphlet_printing_invoice']) ?>" target="_blank">Printing Invoice</a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>Distributor:</strong> <?= htmlspecialchars($pamphlet['pamphlet_distributor_name']) ?><br>
+                                                    <strong>Cost:</strong> $<?= htmlspecialchars($pamphlet['pamphlet_distribution_cost']) ?><br>
+                                                    <?php if (!empty($pamphlet['pamphlet_distribution_invoice'])): ?>
+                                                        <a href="<?= htmlspecialchars($pamphlet['pamphlet_distribution_invoice']) ?>" target="_blank">Distribution Invoice</a>
+                                                    <?php endif; ?>
+                                                </li>
+                                            </ul>
+                                            <div class="mb-3">
+                                                <strong>Total Amount:</strong> $<?= number_format($totalAmount, 2) ?><br>
+                                                <div class="marketing-card-cost">
+                                                    $<?= number_format($remaining, 2) ?>
+                                                    <span class="text-muted small">(Remaining)</span>
+                                                </div>
+                                            </div>
+                                            <div class="sponsor-section">
+                                                <input type="number" class="sponsor-amount" placeholder="Sponsorship Amount" min="1" max="<?= $remaining ?>">
+                                                <!-- Pamphlet -->
+                                                <button class="sponsor-btn"
+                                                    data-program-id="<?= $programId ?>"
+                                                    data-category="pamphlet"
+                                                    data-item-id="<?= $pamphlet['id'] ?>">
+                                                    <i class="fas fa-hand-holding-heart"></i>
+                                                    Sponsor Now
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($bankAccounts)): ?>
+                <div class="marketing-section">
+                    <div class="section-header">
+                        <i class="fas fa-university"></i>
+                        <span>Account Information</span>
+                    </div>
+                    <div class="section-content">
+                        <div class="row g-4">
+                            <?php foreach ($bankAccounts as $account): ?>
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="card h-100 shadow-sm border-primary">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary mb-3">
+                                                <?= htmlspecialchars($account['account_holder_name']) ?>
+                                            </h5>
+                                            <ul class="list-group list-group-flush mb-3">
+                                                <li class="list-group-item">
+                                                    <strong>Bank:</strong> <?= htmlspecialchars($account['bank_name']) ?>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>Account Number:</strong> <?= htmlspecialchars($account['account_number']) ?>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>IFSC Code:</strong> <?= htmlspecialchars($account['ifsc_code']) ?>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>Branch:</strong> <?= htmlspecialchars($account['branch']) ?>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <strong>UPI ID:</strong> <?= htmlspecialchars($account['upi_id']) ?>
+                                                </li>
+                                            </ul>
+                                            <div class="text-muted small">
+                                                Added: <?= htmlspecialchars($account['created_at']) ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            <?php if (empty($bankAccounts)): ?>
+                                <div class="col-12">
+                                    <div class="alert alert-info">No account information available for this program.</div>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php else: ?>
+            <div class="alert alert-info my-5 text-center" style="font-size:1.2rem;">
+                There is no program details.
             </div>
-        </div>
+        <?php endif; ?>
     </div>
 
 
