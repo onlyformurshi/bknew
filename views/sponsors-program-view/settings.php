@@ -1,4 +1,4 @@
-<?php
+
 <?php
 require '../../config/config.php';
 require_once '../../config/functions.php';
