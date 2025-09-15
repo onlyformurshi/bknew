@@ -641,20 +641,9 @@ Browse our list of upcoming programs and events near you.</p>
                   <div class="row">
                     <div class="col-md-3 mb-3">
                       <label for="program_number">Program Number</label>
-                      <select class="form-control select2" id="program_number" name="program_number">
-                        <option value="">All Program Numbers</option>
-                        <?php foreach ($programNumbers as $pn): ?>
-                          <option value="<?= htmlspecialchars($pn['program_number']) ?>"
-                            <?= (isset($_GET['program_number']) && $_GET['program_number'] == $pn['program_number']) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($pn['program_number']) ?>
-                          </option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="program_title">Program Title</label>
-                      <input type="text" id="program_title" name="program_title" class="form-control" placeholder="Enter program title"
-                        value="<?= isset($_GET['program_title']) ? htmlspecialchars($_GET['program_title']) : '' ?>">
+                      <input type="text" id="program_number" name="program_number" class="form-control"
+                        placeholder="Enter program number"
+                        value="<?= isset($_GET['program_number']) ? htmlspecialchars($_GET['program_number']) : '' ?>">
                     </div>
                     <div class="col-md-3 mb-3">
                       <label for="country_id">Country</label>
@@ -690,29 +679,6 @@ Browse our list of upcoming programs and events near you.</p>
                             <?= htmlspecialchars($centre['centre_name']) ?>
                           </option>
                         <?php endforeach; ?>
-                      </select>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="instructor">Instructor Name</label>
-                      <input type="text" id="instructor" name="instructor" class="form-control" placeholder="Enter instructor name"
-                        value="<?= isset($_GET['instructor']) ? htmlspecialchars($_GET['instructor']) : '' ?>">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="date_from">Date From</label>
-                      <input type="date" id="date_from" name="date_from" class="form-control"
-                        value="<?= isset($_GET['date_from']) ? htmlspecialchars($_GET['date_from']) : '' ?>">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="date_to">Date To</label>
-                      <input type="date" id="date_to" name="date_to" class="form-control"
-                        value="<?= isset($_GET['date_to']) ? htmlspecialchars($_GET['date_to']) : '' ?>">
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="program_type">Program Type</label>
-                      <select id="program_type" name="program_type" class="form-select">
-                        <option value="">All Types</option>
-                        <option value="1" <?= (isset($_GET['program_type']) && $_GET['program_type'] == '1') ? 'selected' : '' ?>>Free</option>
-                        <option value="0" <?= (isset($_GET['program_type']) && $_GET['program_type'] == '0') ? 'selected' : '' ?>>Paid</option>
                       </select>
                     </div>
                   </div>
