@@ -323,6 +323,7 @@ FROM program_pamphlets WHERE program_id = ?");
     </section>
 
 
+    <?php if (!empty($radioAds)): ?>
     <div class="container">
         <div class="marketing-section">
             <div class="section-header">
@@ -384,6 +385,7 @@ FROM program_pamphlets WHERE program_id = ?");
             </div>
         </div>
     </div>
+    <?php endif; ?>
 
     <div class="container">
         <div class="marketing-section">

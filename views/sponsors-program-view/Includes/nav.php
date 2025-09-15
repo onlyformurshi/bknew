@@ -22,7 +22,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://randomuser.me/api/portraits/women/45.jpg" class="profile-img me-1" alt="Profile">
+            <img src="<?= SITE_URL ?>/views/sponsors-program-view/assets/images/profile.jpg" class="profile-img me-1" alt="Profile">
             My Profile
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">

@@ -898,6 +898,12 @@ function formatTime($dateString) {
                         <i class="fas fa-map-marker-alt form-icon"></i>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="referralSource" class="form-label">Where did you hear about us?</label>
+                        <input type="text" id="referralSource" name="referralSource" class="form-control" required placeholder="e.g. Social Media, Friend, Website">
+                        <i class="fas fa-info-circle form-icon"></i>
+                    </div>
+                    
                     <div class="terms-container">
                         <div class="terms-checkbox">
                             <input type="checkbox" id="termsAgreement" name="termsAgreement" required>
