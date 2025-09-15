@@ -294,24 +294,6 @@ FROM program_pamphlets WHERE program_id = ?");
                         $percentage = ($max > 0) ? round(($current / $max) * 100) : 0;
                         ?>
 
-                        <div class="progress-section">
-                            <h3 class="section-subtitle">Participant Progress</h3>
-                            <div class="progress-stats">
-                                <div class="stat-item">
-                                    <div class="stat-number"><?= $percentage ?>%</div>
-                                    <div class="stat-label">Registration Complete</div>
-                                    <div class="progress-bar-custom">
-                                        <div class="progress-fill" style="width: <?= $percentage ?>%"></div>
-                                    </div>
-                                </div>
-                                <div class="stat-item">
-                                    <div class="stat-number"><?= number_format($current) ?>+</div>
-                                    <div class="stat-label">Confirmed Attendees</div>
-                                </div>
-
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
