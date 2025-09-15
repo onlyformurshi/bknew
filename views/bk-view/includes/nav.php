@@ -11,7 +11,12 @@ require_once '../../helpers/site-url.php';
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-     
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="<?= SITE_URL ?>/views/bk-view/"><i class="fas fa-home me-1"></i> Home</a>
+        </li>
+      
+      </ul>
     </div>
   </div>
 </nav>
