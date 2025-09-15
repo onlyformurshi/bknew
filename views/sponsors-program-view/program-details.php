@@ -146,18 +146,6 @@ FROM program_pamphlets WHERE program_id = ?");
         while ($row = $sponsorshipStmt->fetch(PDO::FETCH_ASSOC)) {
             $userSponsorships[$row['category'] . '_' . $row['item_id']] = $row;
         }
-
-        // Fetch session details for the program
-        $sessions = [];
-        $sessionDetailStmt = $pdo->prepare("SELECT 
-            id, 
-            program_id, 
-            session_name, 
-            session_start, 
-            session_end 
-            FROM program_sessions_times WHERE program_id = ? ORDER BY session_start");
-        $sessionDetailStmt->execute([$programId]);
-        $sessions = $sessionDetailStmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         $error = "Database Error: " . $e->getMessage();
     }
@@ -310,17 +298,8 @@ FROM program_pamphlets WHERE program_id = ?");
 
                         <!-- Participants Progress -->
                         <?php
-                        // Fetch current participant count for this program
-                        $current = 0;
-                        try {
-                            $countStmt = $pdo->prepare("SELECT COUNT(*) FROM participants WHERE program_id = ?");
-                            $countStmt->execute([$programId]);
-                            $current = (int)$countStmt->fetchColumn();
-                        } catch (PDOException $e) {
-                            $current = 0;
-                        }
-
                         $max = $program['max_participants'] ?? 0;
+                        $current =  12;
                         $percentage = ($max > 0) ? round(($current / $max) * 100) : 0;
                         ?>
 
@@ -338,24 +317,7 @@ FROM program_pamphlets WHERE program_id = ?");
 
                             </div>
                         </div>
-<!-- Program Schedule Sessions List -->
-                            <?php if (!empty($sessions)): ?>
-                                <div class="mt-4">
-                                    <h5 class="fw-bold mb-2">Program Schedule</h5>
-                                    <ul class="list-group">
-                                        <?php foreach ($sessions as $session): ?>
-                                            <li class="list-group-item">
-                                                <span class="fw-semibold"><?= htmlspecialchars($session['session_name']) ?></span>
-                                                <br>
-                                                <small>
-                                                    <?= date('F j, Y', strtotime($session['session_start'])) ?> |
-                                                    <?= date('g:i A', strtotime($session['session_start'])) ?> - <?= date('g:i A', strtotime($session['session_end'])) ?>
-                                                </small>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </div>
-                            <?php endif; ?>
+
                     </div>
                 </div>
             </div>
@@ -876,7 +838,7 @@ FROM program_pamphlets WHERE program_id = ?");
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM36 0V4h-2V0h-4v2h4v4h2V2h4V0h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 0V4H4V0H0v2h4v4h2V2h4V0H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
             opacity: 0.1;
         }
 
@@ -1213,7 +1175,7 @@ FROM program_pamphlets WHERE program_id = ?");
                 })
             })
             .then(res => res.json())
-            .then data => {
+            .then(data => {
                 var modalEl = document.getElementById('sponsorConfirmModal');
                 var modal = bootstrap.Modal.getInstance(modalEl);
                 modal.hide();

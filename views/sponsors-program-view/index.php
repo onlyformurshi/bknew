@@ -682,16 +682,21 @@ if ($showPending) {
                     </div>
                   </div>
                 </div>
-                <div class="info-item">
-                  <div class="info-icon"><i class="fas fa-users"></i></div>
-                  <div class="info-content">
-                    <div class="info-label">Participants</div>
-                    <div class="info-value"><?= $program['current_participants'] ?> / <?= $program['max_participants'] ?> registered</div>
-                    <div class="participants-bar">
-                      <div class="participants-fill" style="width: <?= $program['max_participants'] ? round($program['current_participants'] / $program['max_participants'] * 100) : 0 ?>%;"></div>
-                    </div>
-                  </div>
-                </div>
+                <?php
+$countStmt = $pdo->prepare("SELECT COUNT(*) FROM participants WHERE program_id = ?");
+$countStmt->execute([$program['id']]);
+$current = (int)$countStmt->fetchColumn();
+?>
+<div class="info-item">
+  <div class="info-icon"><i class="fas fa-users"></i></div>
+  <div class="info-content">
+    <div class="info-label">Participants</div>
+    <div class="info-value"><?= htmlspecialchars($current) ?> / <?= htmlspecialchars($program['max_participants']) ?> registered</div>
+    <div class="participants-bar">
+      <div class="participants-fill" style="width: <?= $program['max_participants'] ? round($current / $program['max_participants'] * 100) : 0 ?>%;"></div>
+    </div>
+  </div>
+</div>
               </div>
               <div class="card-footer bg-transparent border-0 p-3">
                 <a href="program-details.php?id=<?= $program['id'] ?>" class="btn btn-marketing">
