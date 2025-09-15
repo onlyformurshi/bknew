@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/helpers/site-url.php';
+require_once '../../helpers/site-url.php';
 ?>
 <!-- Header -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -11,14 +11,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/helpers/site-url.php';
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="<?= SITE_URL ?>views/bk-view/"><i class="fas fa-home me-1"></i> Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?= SITE_URL ?>views/bk-view/"><i class="fas fa-calendar-alt me-1"></i> Programs</a>
-        </li>
-      </ul>
+     
     </div>
   </div>
 </nav>
