@@ -660,7 +660,11 @@ if ($showPending) {
                   <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                   <div class="info-content">
                     <div class="info-label">Location</div>
-                    <div class="info-value"><?= htmlspecialchars($program['venue']) ?>, <?= htmlspecialchars($program['regional_name']) ?>, <?= htmlspecialchars($program['country_name']) ?></div>
+                    <div class="info-value">
+  <?= htmlspecialchars($program['venue']) ?><br>
+  <?= htmlspecialchars($program['regional_name']) ?><br>
+  <?= htmlspecialchars($program['country_name']) ?>
+</div>
                   </div>
                 </div>
                 <div class="info-item">
