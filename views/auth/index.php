@@ -13,7 +13,7 @@ if (!isset($_SESSION['csrf_token'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BRAHMAKUMARISS</title>
+  <title>BRAHMAKUMARIS</title>
   <link rel="icon" type="image/x-icon" href="../../assets/images/bk-logo-fav.png">
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/login.css">
