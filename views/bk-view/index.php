@@ -471,6 +471,16 @@ if ($showPending) {
       text-overflow: ellipsis;
     }
 
+    .info-value.location-value {
+      font-size: 0.8rem;
+      color: #2d3748;
+      font-weight: 600;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: unset;
+      word-break: break-word;
+    }
+
     .participants-bar {
       background: #e2e8f0;
       height: 6px;
@@ -740,7 +750,7 @@ Browse our list of upcoming programs and events near you.</p>
                   <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                   <div class="info-content">
                     <div class="info-label">Location</div>
-                    <div class="info-value"><?= htmlspecialchars($program['venue']) ?>, <?= htmlspecialchars($program['regional_name']) ?>, <?= htmlspecialchars($program['country_name']) ?></div>
+                    <div class="info-value location-value"><?= htmlspecialchars($program['venue']) ?>, <?= htmlspecialchars($program['regional_name']) ?>, <?= htmlspecialchars($program['country_name']) ?></div>
                   </div>
                 </div>
                 <div class="info-item">
