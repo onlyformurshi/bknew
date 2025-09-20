@@ -130,13 +130,13 @@ $paymentStatuses = ['Pending', 'Completed'];
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="payment_type">Payment Type</label>
-                                        <select class="form-control" name="payment_type" id="payment_type" required>
+                                        <select class="form-control" name="payment_type" id="payment_type">
                                             <option value="">Select Payment Type</option>
                                             <?php foreach ($paymentTypes as $type): ?>
                                                 <option value="<?= htmlspecialchars($type) ?>"><?= htmlspecialchars($type) ?></option>
                                             <?php endforeach; ?>
                                         </select>
-                                        <div class="invalid-feedback">Please select payment type.</div>
+                                        <!-- Remove 'required' and invalid-feedback -->
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end">
@@ -201,6 +201,7 @@ $paymentStatuses = ['Pending', 'Completed'];
                 return false;
             }
 
+            // Remove payment_type required validation
             if (!this.checkValidity()) {
                 e.preventDefault();
                 e.stopPropagation();
