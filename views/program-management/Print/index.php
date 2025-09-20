@@ -236,7 +236,7 @@ $actualParticipantCount = $stmt->fetchColumn();
                   <?php if ($showPrice): ?>
                     <div class="alert alert-info mb-3">
                       <strong>Total Marketing Cost:</strong>
-                      ₹<?= number_format($totalMarketingExpense, 2) ?>
+                      <?= number_format($totalMarketingExpense, 2) ?>
                     </div>
                   <?php endif; ?>
                 </div>

@@ -736,7 +736,7 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                 <?php if ($showPrice): ?>
                                     <div class="alert alert-info mb-3">
                                         <strong>Total Marketing Cost:</strong>
-                                        ₹<?= number_format($totalMarketingExpense, 2) ?>
+                                        <?= number_format($totalMarketingExpense, 2) ?>
                                     </div>
                                 <?php endif; ?>
                                 <h6 class="font-weight-bold mt-4 mb-2" class="mt-3">Account Information</h6>

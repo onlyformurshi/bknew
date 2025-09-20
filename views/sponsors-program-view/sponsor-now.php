@@ -41,7 +41,7 @@
                 <div class="detail-row">
                     <div class="detail-label">Design Cost:</div>
                     <div class="detail-input">
-                        <input type="number" class="form-control amount-input" id="designCost" placeholder="₹ 0.00" onchange="calculateTotal()">
+                        <input type="number" class="form-control amount-input" id="designCost" placeholder=" 0.00" onchange="calculateTotal()">
                     </div>
                 </div>
                 
@@ -72,7 +72,7 @@
                 <div class="detail-row">
                     <div class="detail-label">Printing Cost:</div>
                     <div class="detail-input">
-                        <input type="number" class="form-control amount-input" id="printingCost" placeholder="₹ 0.00" onchange="calculateTotal()">
+                        <input type="number" class="form-control amount-input" id="printingCost" placeholder=" 0.00" onchange="calculateTotal()">
                     </div>
                 </div>
                 
@@ -103,7 +103,7 @@
                 <div class="detail-row">
                     <div class="detail-label">Distribution Cost:</div>
                     <div class="detail-input">
-                        <input type="number" class="form-control amount-input" id="distributionCost" placeholder="₹ 0.00" onchange="calculateTotal()">
+                        <input type="number" class="form-control amount-input" id="distributionCost" placeholder=" 0.00" onchange="calculateTotal()">
                     </div>
                 </div>
                 
@@ -127,7 +127,7 @@
                 <div class="detail-row">
                     <div class="detail-label">Sponsor Amount:</div>
                     <div class="detail-input">
-                        <input type="number" class="form-control amount-input" id="sponsorAmount" placeholder="₹ 0.00" onchange="calculateTotal()">
+                        <input type="number" class="form-control amount-input" id="sponsorAmount" placeholder=" 0.00" onchange="calculateTotal()">
                     </div>
                 </div>
             </div>
@@ -138,26 +138,26 @@
                 <div class="row mt-4">
                     <div class="col-6 col-md-3">
                         <h5>Design</h5>
-                        <div class="h4">₹<span id="totalDesign">0</span></div>
+                        <div class="h4"><span id="totalDesign">0</span></div>
                     </div>
                     <div class="col-6 col-md-3">
                         <h5>Printing</h5>
-                        <div class="h4">₹<span id="totalPrinting">0</span></div>
+                        <div class="h4"><span id="totalPrinting">0</span></div>
                     </div>
                     <div class="col-6 col-md-3">
                         <h5>Distribution</h5>
-                        <div class="h4">₹<span id="totalDistribution">0</span></div>
+                        <div class="h4"><span id="totalDistribution">0</span></div>
                     </div>
                     <div class="col-6 col-md-3">
                         <h5>Sponsorship</h5>
-                        <div class="h4">₹<span id="totalSponsor">0</span></div>
+                        <div class="h4"><span id="totalSponsor">0</span></div>
                     </div>
                 </div>
                 
                 <hr class="my-4" style="border-color: rgba(255,255,255,0.3);">
                 
                 <h2>Total Campaign Value</h2>
-                <div class="total-display">₹<span id="grandTotal">0</span></div>
+                <div class="total-display"><span id="grandTotal">0</span></div>
                 
                 <div class="mt-4">
                     <button class="btn btn-calculate" onclick="calculateTotal()">
@@ -225,7 +225,7 @@
             const grandTotal = document.getElementById('grandTotal').textContent;
             
             // Show confirmation
-            if (confirm(`Confirm Sponsorship Details:\n\nDesign: ₹${formData.design.designCost || 0}\nPrinting: ₹${formData.printing.printingCost || 0}\nDistribution: ₹${formData.distribution.distributionCost || 0}\nSponsorship: ₹${formData.sponsorship.sponsorAmount || 0}\n\nTotal Campaign Value: ₹${grandTotal}\n\nProceed with submission?`)) {
+            if (confirm(`Confirm Sponsorship Details:\n\nDesign: ${formData.design.designCost || 0}\nPrinting: ${formData.printing.printingCost || 0}\nDistribution: ${formData.distribution.distributionCost || 0}\nSponsorship: ${formData.sponsorship.sponsorAmount || 0}\n\nTotal Campaign Value: ${grandTotal}\n\nProceed with submission?`)) {
                 alert('Thank you! Your sponsorship details have been submitted successfully.');
                 console.log('Submitted Data:', formData);
                 // Here you would typically send data to server
