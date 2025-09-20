@@ -1,7 +1,11 @@
 <?php
 require '../../config/config.php';
+require_once '../../vendor/autoload.php';
 
-// Build WHERE clause (same as in index.php)
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+// Build WHERE clause (same as index.php)
 $whereConditions = [];
 $queryParams = [];
 
@@ -40,8 +44,7 @@ if (!empty($_GET['attendance_status'])) {
 
 $whereClause = $whereConditions ? "WHERE " . implode(" AND ", $whereConditions) : "";
 
-// Fetch all filtered participants
-$query = "SELECT participants.*, programs.title, programs.program_number
+$query = "SELECT participants.reference_id, participants.full_name, participants.mobile, participants.place, participants.registration_date, participants.attendance_status, participants.hear_about_us, programs.title, programs.program_number
           FROM participants
           LEFT JOIN programs ON participants.program_id = programs.id
           $whereClause
@@ -53,25 +56,36 @@ foreach ($queryParams as $key => $value) {
 $stmt->execute();
 $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Output CSV headers
-header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename=participants_export.csv');
+// Create Spreadsheet
+$spreadsheet = new Spreadsheet();
+$sheet = $spreadsheet->getActiveSheet();
 
-$output = fopen('php://output', 'w');
-fputcsv($output, ['#', 'Reference ID', 'Program', 'Full Name', 'Mobile', 'Place', 'Attendance', 'Registered On']);
+// Header
+$headers = [
+    'Reference ID', 'Program Number', 'Program Title', 'Full Name', 'Mobile', 'Place', 'Where did you hear?', 'Attendance', 'Registered On'
+];
+$sheet->fromArray($headers, NULL, 'A1');
 
-$counter = 1;
+// Data
+$rowNum = 2;
 foreach ($participants as $row) {
-    fputcsv($output, [
-        $counter++,
-        $row['reference_id'],
-        $row['program_number'] . ' - ' . $row['title'],
-        $row['full_name'],
-        $row['mobile'],
-        $row['place'],
-        ucfirst($row['attendance_status']),
-        date('M d, Y H:i', strtotime($row['registration_date']))
-    ]);
+    $sheet->setCellValue("A$rowNum", $row['reference_id']);
+    $sheet->setCellValue("B$rowNum", $row['program_number']);
+    $sheet->setCellValue("C$rowNum", $row['title']);
+    $sheet->setCellValue("D$rowNum", $row['full_name']);
+    $sheet->setCellValue("E$rowNum", $row['mobile']);
+    $sheet->setCellValue("F$rowNum", $row['place']);
+    $sheet->setCellValue("G$rowNum", $row['hear_about_us']); // New field
+    $sheet->setCellValue("H$rowNum", ucfirst($row['attendance_status']));
+    $sheet->setCellValue("I$rowNum", date('M d, Y H:i', strtotime($row['registration_date'])));
+    $rowNum++;
 }
-fclose($output);
+
+// Output to browser
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment;filename="participants.xlsx"');
+header('Cache-Control: max-age=0');
+
+$writer = new Xlsx($spreadsheet);
+$writer->save('php://output');
 exit;

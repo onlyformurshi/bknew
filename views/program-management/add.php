@@ -140,7 +140,7 @@ if ($id) {
 
                                     <!-- centre -->
                                     <div class="col-md-4 mb-3">
-                                        <label for="centre_id">centre*</label>
+                                        <label for="centre_id">Centre*</label>
                                         <select class="form-control select2" id="centre_id" name="centre_id" required>
                                             <option value="">Select centre</option>
                                             <?php foreach ($centres as $centre): ?>
@@ -193,18 +193,9 @@ if ($id) {
                                         <div class="invalid-feedback">Please enter max participants.</div>
                                     </div>
 
-                                    <!-- Current Participants -->
-                                    <div class="col-md-4 mb-3">
-                                        <label for="current_participants">Current Participants*</label>
-                                        <input type="number" class="form-control" id="current_participants"
-                                            name="current_participants"
-                                            value="<?= htmlspecialchars($current_participants) ?>" required>
-                                        <div class="invalid-feedback">Please enter current participants.</div>
-                                    </div>
-
                                     <!-- Status -->
                                     <div class="col-md-4 mb-3">
-                                        <label for="status">Progress</label>
+                                        <label for="status">Entry Status</label>
                                         <select class="form-control select2" id="status" name="status" required>
                                             <option value="pending" <?= $status == 'pending' ? 'selected' : '' ?>>Pending</option>
                                             <option value="activated" <?= $status == 'activated' ? 'selected' : '' ?>>Activated</option>

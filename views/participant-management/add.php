@@ -47,6 +47,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $additional_notes = $participant['additional_notes'];
     }
 }
+$hear_about_us = '';
+if ($isEdit && isset($participant['hear_about_us'])) {
+    $hear_about_us = $participant['hear_about_us'];
+}
 ?>
 
 <div class="app-main__outer">
@@ -118,6 +122,20 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                                         <option value="cancelled" <?= $attendance_status == 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
                                     </select>
                                     <div class="invalid-feedback">Please select attendance status.</div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="hear_about_us">Where did you hear about us?</label>
+                                    <select class="form-control" id="hear_about_us" name="hear_about_us" required>
+                                        <option value="">Select</option>
+                                        <option value="Friend/Family" <?= $hear_about_us == 'Friend/Family' ? 'selected' : '' ?>>Friend/Family</option>
+                                        <option value="Social Media" <?= $hear_about_us == 'Social Media' ? 'selected' : '' ?>>Social Media</option>
+                                        <option value="Website" <?= $hear_about_us == 'Website' ? 'selected' : '' ?>>Website</option>
+                                        <option value="Event" <?= $hear_about_us == 'Event' ? 'selected' : '' ?>>Event</option>
+                                        <option value="Other" <?= $hear_about_us == 'Other' ? 'selected' : '' ?>>Other</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select how you heard about us.</div>
                                 </div>
                             </div>
                             <div class="form-row">

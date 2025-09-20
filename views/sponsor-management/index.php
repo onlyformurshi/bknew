@@ -204,9 +204,14 @@ $totalPrograms = $totalPrograms ?: 0;
             <div class="card-body">
                 <div class="card-header d-flex justify-content-between">
                     <span>Sponsor List</span>
-                    <?php if ($canadd): ?>
-                        <a href="add.php" class="btn btn-success"><i class="fa fa-plus"></i> Add Sponsor</a>
-                    <?php endif; ?>
+                    <div>
+                        <button class="btn btn-warning mr-2" id="exportExcelBtn">
+                            <i class="fa fa-download"></i> Export as Excel
+                        </button>
+                        <?php if ($canadd): ?>
+                            <a href="add.php" class="btn btn-success"><i class="fa fa-plus"></i> Add Sponsor</a>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped table-hover">
@@ -369,6 +374,11 @@ $totalPrograms = $totalPrograms ?: 0;
             }
         });
     }
+
+    document.getElementById('exportExcelBtn').addEventListener('click', function() {
+        const params = new URLSearchParams(window.location.search);
+        window.open('export.php?' + params.toString(), '_blank');
+    });
 
     $(document).ready(function() {
         $('.select2').select2();

@@ -31,14 +31,8 @@ if ($filters['centre_id']) {
   $params['centre_id'] = $filters['centre_id'];
 }
 
-// Add status filter based on user access
-if (canUserViewProgram($pdo, 'Sponsors Program View')) {
-    // Show both pending and activated
-    $where[] = "programs.status IN ('pending', 'activated')";
-} else {
-    // Show only activated
-    $where[] = "programs.status = 'activated'";
-}
+// Add status filter: only activated programs
+$where[] = "programs.status = 'activated'";
 
 $whereClause = $where ? "WHERE " . implode(" AND ", $where) : "";
 
@@ -78,19 +72,19 @@ $stmt->execute();
 $programs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $programNumbers = $pdo->query("SELECT program_number FROM programs ORDER BY program_number")->fetchAll(PDO::FETCH_ASSOC);
 
-// Filter programs based on user permissions
-$showPending = canUserViewProgram($pdo, 'Sponsors Program View');
-if ($showPending) {
-    // Show both pending and activated programs
-    $programs = array_filter($programs, function($program) {
-        return in_array($program['status'], ['pending', 'activated']);
-    });
-} else {
-    // Show only activated programs
-    $programs = array_filter($programs, function($program) {
-        return $program['status'] === 'activated';
-    });
-}
+// Remove extra filtering after fetch (no need for $showPending or array_filter)
+// $showPending = canUserViewProgram($pdo, 'Sponsors Program View');
+// if ($showPending) {
+//     // Show both pending and activated programs
+//     $programs = array_filter($programs, function($program) {
+//         return in_array($program['status'], ['pending', 'activated']);
+//     });
+// } else {
+//     // Show only activated programs
+//     $programs = array_filter($programs, function($program) {
+//         return $program['status'] === 'activated';
+//     });
+// }
 ?>
 
 <!DOCTYPE html>
@@ -100,6 +94,7 @@ if ($showPending) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sponsor Our Events - Partnership Opportunities</title>
+  <link rel="icon" type="image/png" href="../assets/images/bk-logo-fav.png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>

@@ -364,7 +364,7 @@ LEFT JOIN centres ON programs.centre_id = centres.id
 LEFT JOIN regionals ON programs.regional_id = regionals.id
 LEFT JOIN countries ON programs.country_id = countries.id
 $whereClause
-ORDER BY programs.updated_at DESC 
+ORDER BY programs.program_number DESC, programs.updated_at DESC 
 LIMIT :limit OFFSET :offset";
 
                                     $stmt = $pdo->prepare($query);

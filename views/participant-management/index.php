@@ -100,7 +100,7 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
-            
+
 
         </div>
         <div class="app-page-title app-page-title-simple">
@@ -116,9 +116,7 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <div>
-                    <button class="btn btn-primary" id="exportBtn">
-                        <i class="fa fa-download"></i> Export
-                    </button>
+
                 </div>
             </div>
         </div>
@@ -218,16 +216,25 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="">
                         <div class="d-flex justify-content-between card-header d-flex justify-content-center mt-3">
                             Participants List
-                            <?php if ($canadd): ?>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-info mr-3" id="exportBtn">
+                                    <i class="fa fa-download"></i> Export as Excel
+                                </button>
+                                <?php if ($canadd): ?>
                                 <a href="add.php" class="btn btn-primary">
                                     <i class="fa fa-plus"></i> Add Participant
                                 </a>
+
                             <?php endif; ?>
+                            </div>
+
+                            
 
 
                         </div>
 
                     </div>
+
                     <div class="card-body">
 
 
@@ -243,9 +250,10 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <th class="text-center">Full Name</th>
                                         <th class="text-center">Mobile</th>
                                         <th class="text-center">Place</th>
+                                        <th class="text-center">Where did you hear?</th> <!-- New column -->
                                         <th class="text-center">Attendance</th>
                                         <th class="text-center">Registered On</th>
-                                        <th class="text-center">Action</th> <!-- Add this line -->
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -259,6 +267,7 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <td class="text-center"><?= htmlspecialchars($row['full_name']) ?></td>
                                             <td class="text-center"><?= htmlspecialchars($row['mobile']) ?></td>
                                             <td class="text-center"><?= htmlspecialchars($row['place']) ?></td>
+                                            <td class="text-center"><?= htmlspecialchars($row['hear_about_us']) ?></td> <!-- New cell -->
                                             <td class="text-center"><?= ucfirst($row['attendance_status']) ?></td>
                                             <td class="text-center"><?= date('M d, Y H:i', strtotime($row['registration_date'])) ?></td>
                                             <td class="text-center">
@@ -286,7 +295,7 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     endforeach; ?>
                                     <?php if (empty($participants)): ?>
                                         <tr>
-                                            <td colspan="9" class="text-center text-danger">No participants found.</td>
+                                            <td colspan="10" class="text-center text-danger">No participants found.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -352,28 +361,9 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <script>
                 document.getElementById('exportBtn').addEventListener('click', function() {
-                    const table = document.querySelector('.table-responsive table');
-                    let csv = [];
-                    for (let row of table.rows) {
-                        let rowData = [];
-                        for (let cell of row.cells) {
-                            let text = cell.innerText.replace(/"/g, '""');
-                            rowData.push('"' + text + '"');
-                        }
-                        csv.push(rowData.join(','));
-                    }
-                    let csvContent = csv.join('\n');
-                    let blob = new Blob([csvContent], {
-                        type: 'text/csv'
-                    });
-                    let url = URL.createObjectURL(blob);
-                    let a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'participants_export.csv';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
+                    // Get current filters
+                    const params = new URLSearchParams(window.location.search);
+                    window.open('export-participants.php?' + params.toString(), '_blank');
                 });
 
                 function editParticipant(id) {
@@ -421,10 +411,8 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
 
                 function remindWhatsapp(mobile, name, programTitle, programNumber) {
-                    let phone = mobile.replace(/\D/g, '');
-                    if (phone.length === 10) {
-                        phone = '91' + phone; // Default to India country code, change if needed
-                    }
+                    let phone = mobile.replace(/\D/g, ''); // Remove non-digits
+                    phone = phone.replace(/^(\+)+/, '');   // Remove leading plus if present
                     let message = `Dear ${name},%0A%0AThis is a gentle reminder for your upcoming program:%0AProgram: ${programTitle} (No: ${programNumber})%0A%0APlease be present as scheduled.%0A%0AThank you!`;
                     let url = `https://wa.me/${phone}?text=${message}`;
                     window.open(url, '_blank');
