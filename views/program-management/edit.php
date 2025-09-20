@@ -85,7 +85,7 @@ if ($id) {
 
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.php">Programssssssss Management</a></li>
+                        <li class="breadcrumb-item"><a href="index.php">Program Management</a></li>
                         <li class="breadcrumb-item active" aria-current="page">
                             <?= $id ? "Edit Program" : "Add New Program" ?>
                         </li>
@@ -276,7 +276,7 @@ if ($id) {
                                                 <input type="text" class="form-control" name="session_name[]" placeholder="Session Name" required>
                                             </div>
                                             <div class="col-md-3 mb-2">
-                                                <label>Starts Date & Time</label>
+                                                <label>Start Date & Time</label>
                                                 <input type="datetime-local" class="form-control" name="session_start[]" required>
                                             </div>
                                             <div class="col-md-3 mb-2">
