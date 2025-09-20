@@ -262,14 +262,14 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     foreach ($participants as $row): ?>
                                         <tr>
                                             <td class="text-center"><?= $counter ?></td>
-                                            <td class="text-center"><?= htmlspecialchars($row['reference_id']) ?></td>
-                                            <td class="text-center"><?= htmlspecialchars($row['program_number']) ?> - <?= htmlspecialchars($row['title']) ?></td>
-                                            <td class="text-center"><?= htmlspecialchars($row['full_name']) ?></td>
-                                            <td class="text-center"><?= htmlspecialchars($row['mobile']) ?></td>
-                                            <td class="text-center"><?= htmlspecialchars($row['place']) ?></td>
-                                            <td class="text-center"><?= htmlspecialchars($row['hear_about_us']) ?></td> <!-- New cell -->
-                                            <td class="text-center"><?= ucfirst($row['attendance_status']) ?></td>
-                                            <td class="text-center"><?= date('M d, Y H:i', strtotime($row['registration_date'])) ?></td>
+                                            <td class="text-center"><?= htmlspecialchars($row['reference_id'] ?? 'None') ?></td>
+                                            <td class="text-center"><?= htmlspecialchars($row['program_number'] ?? 'None') ?> - <?= htmlspecialchars($row['title'] ?? 'None') ?></td>
+                                            <td class="text-center"><?= htmlspecialchars($row['full_name'] ?? 'None') ?></td>
+                                            <td class="text-center"><?= htmlspecialchars($row['mobile'] ?? 'None') ?></td>
+                                            <td class="text-center"><?= htmlspecialchars($row['place'] ?? 'None') ?></td>
+                                            <td class="text-center"><?= htmlspecialchars($row['hear_about_us'] ?? 'None') ?></td> <!-- New cell -->
+                                            <td class="text-center"><?= ucfirst($row['attendance_status'] ?? 'None') ?></td>
+                                            <td class="text-center"><?= !empty($row['registration_date']) ? date('M d, Y H:i', strtotime($row['registration_date'])) : 'None' ?></td>
                                             <td class="text-center">
                                                 <div class="dropdown">
                                                     <a style="cursor:pointer;" class="dropdown-toggle" type="button" id="dropdownMenu<?= $row['id'] ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
