@@ -2,6 +2,7 @@
 require '../Includes/header.php';
 require '../../config/config.php';
 require_once '../../config/functions.php';
+require_once '../../helpers/site-url.php';
 
 checkModuleAccess($pdo, 'Participant Management');
 $canadd = canUsercan_add($pdo, 'Participant Management'); // <-- use new function
@@ -221,14 +222,14 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <i class="fa fa-download"></i> Export as Excel
                                 </button>
                                 <?php if ($canadd): ?>
-                                <a href="add.php" class="btn btn-primary">
-                                    <i class="fa fa-plus"></i> Add Participant
-                                </a>
+                                    <a href="add.php" class="btn btn-primary">
+                                        <i class="fa fa-plus"></i> Add Participant
+                                    </a>
 
-                            <?php endif; ?>
+                                <?php endif; ?>
                             </div>
 
-                            
+
 
 
                         </div>
@@ -281,12 +282,37 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                             <a class="dropdown-item text-primary" href="#" onclick="editParticipant(<?= $row['id'] ?>)">✏ Edit</a>
                                                         <?php endif; ?>
 
+
+
+
                                                         <?php if ($candelete): ?>
                                                             <a class="dropdown-item text-danger" href="#" onclick="deleteParticipant(<?= $row['id'] ?>)">🗑 Delete</a>
                                                         <?php endif; ?>
+                                                        <a
+                                                            class="text-primary"
+                                                            style="padding: 8px 16px;font-size: .88rem;
+        display: flex;
+        align-items: center;
+        transition: background-color .3s ease, color .3s ease;
+        cursor: pointer;
+        z-index: 6;
+        position: relative;width: 100%;
+        padding: .4rem 1.5rem;
+        clear: both;
+        font-weight: 400;
+        color: #212529;
+        text-align: inherit;
+        white-space: nowrap;
+        background-color: transparent;
+        border: 0;"
+                                                            href="<?= SITE_URL ?>/views/participant-registration/ticket-participiants.php?program-id=<?= urlencode($row['program_number']) ?>&reference_id=<?= urlencode($row['reference_id']) ?>&success=1"
+                                                            target="_blank">
+                                                            <i class="fa fa-download"></i> Download Ticket
+                                                        </a>
                                                         <a class="dropdown-item text-success" href="#" onclick="remindWhatsapp('<?= htmlspecialchars($row['mobile']) ?>', '<?= htmlspecialchars($row['full_name']) ?>', '<?= htmlspecialchars($row['title']) ?>', '<?= htmlspecialchars($row['program_number']) ?>')">
                                                             <i class="fa fa-whatsapp"></i> Remind via WhatsApp
                                                         </a>
+
                                                     </div>
                                                 </div>
                                             </td>
@@ -359,6 +385,7 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </style>
             <?php include '../Includes/footer.php'; ?>
 
+
             <script>
                 document.getElementById('exportBtn').addEventListener('click', function() {
                     // Get current filters
@@ -412,7 +439,7 @@ $participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 function remindWhatsapp(mobile, name, programTitle, programNumber) {
                     let phone = mobile.replace(/\D/g, ''); // Remove non-digits
-                    phone = phone.replace(/^(\+)+/, '');   // Remove leading plus if present
+                    phone = phone.replace(/^(\+)+/, ''); // Remove leading plus if present
                     let message = `Dear ${name},%0A%0AThis is a gentle reminder for your upcoming program:%0AProgram: ${programTitle} (No: ${programNumber})%0A%0APlease be present as scheduled.%0A%0AThank you!`;
                     let url = `https://wa.me/${phone}?text=${message}`;
                     window.open(url, '_blank');
