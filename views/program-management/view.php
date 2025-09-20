@@ -110,6 +110,11 @@ try {
     $allSessionsStmt = $pdo->prepare("SELECT session_name, session_start, session_end FROM program_sessions_times WHERE program_id = ? ORDER BY session_start ASC");
     $allSessionsStmt->execute([$programId]);
     $allSessions = $allSessionsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Fetch actual participant count for this program
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM participants WHERE program_id = ?");
+    $stmt->execute([$programId]);
+    $actualParticipantCount = $stmt->fetchColumn();
 } catch (PDOException $e) {
     $error = "Database Error: " . $e->getMessage();
 }
@@ -300,7 +305,7 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                         <div class="detail-item mb-3">
                                             <h6 class="font-weight-bold" class="detail-label">Participants:</h6>
                                             <p class="detail-value">
-                                                <?= $program['current_participants'] ?> /
+                                                <?= $actualParticipantCount ?> /
                                                 <?= $program['max_participants'] ?>
                                             </p>
                                             <small class="text-muted">
@@ -385,6 +390,9 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                                 <?php if ($showPrice): ?><th>Printing Cost</th><?php endif; ?>
                                                 <th>Distributor</th>
                                                 <?php if ($showPrice): ?><th>Distribution Cost</th><?php endif; ?>
+                                                <th>Designer Invoice</th>
+                                                <th>Printing Invoice</th>
+                                                <th>Distribution Invoice</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -396,6 +404,27 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                                     <?php if ($showPrice): ?><td><?= htmlspecialchars($pamphlet['pamphlet_printing_cost']) ?></td><?php endif; ?>
                                                     <td><?= htmlspecialchars($pamphlet['pamphlet_distributor_name']) ?></td>
                                                     <?php if ($showPrice): ?><td><?= htmlspecialchars($pamphlet['pamphlet_distribution_cost']) ?></td><?php endif; ?>
+                                                    <td>
+                                                        <?php if (!empty($pamphlet['pamphlet_designer_invoice'])): ?>
+                                                            <a href="../../uploads/pamphlets/<?= htmlspecialchars($pamphlet['pamphlet_designer_invoice']) ?>" target="_blank" class="btn btn-sm btn-info">View Invoice</a>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">No Invoice</span>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php if (!empty($pamphlet['pamphlet_printing_invoice'])): ?>
+                                                            <a href="../../uploads/pamphlets/<?= htmlspecialchars($pamphlet['pamphlet_printing_invoice']) ?>" target="_blank" class="btn btn-sm btn-info">View Invoice</a>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">No Invoice</span>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php if (!empty($pamphlet['pamphlet_distribution_invoice'])): ?>
+                                                            <a href="../../uploads/pamphlets/<?= htmlspecialchars($pamphlet['pamphlet_distribution_invoice']) ?>" target="_blank" class="btn btn-sm btn-info">View Invoice</a>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">No Invoice</span>
+                                                        <?php endif; ?>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -414,6 +443,7 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                                 <?php if ($showPrice): ?><th>Cost</th><?php endif; ?>
                                                 <th>Contact</th>
                                                 <th>Remarks</th>
+                                                <th>Invoice</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -423,6 +453,13 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                                     <?php if ($showPrice): ?><td><?= htmlspecialchars($radio['cost']) ?></td><?php endif; ?>
                                                     <td><?= htmlspecialchars($radio['contact']) ?></td>
                                                     <td><?= htmlspecialchars($radio['remarks']) ?></td>
+                                                    <td>
+                                                        <?php if (!empty($radio['invoice_file'])): ?>
+                                                            <a href="../../uploads/radio_invoices/<?= htmlspecialchars($radio['invoice_file']) ?>" target="_blank" class="btn btn-sm btn-info">View Invoice</a>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">No Invoice</span>
+                                                        <?php endif; ?>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -452,6 +489,13 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                                     <?php if ($showPrice): ?><td><?= htmlspecialchars($tv['cost']) ?></td><?php endif; ?>
                                                     <td><?= htmlspecialchars($tv['contact']) ?></td>
                                                     <td><?= htmlspecialchars($tv['remarks']) ?></td>
+                                                    <td>
+                                                        <?php if (!empty($tv['invoice_file'])): ?>
+                                                            <a href="../../uploads/television_invoices/<?= htmlspecialchars($tv['invoice_file']) ?>" target="_blank" class="btn btn-sm btn-info">View Invoice</a>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">No Invoice</span>
+                                                        <?php endif; ?>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -497,6 +541,13 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                                     <td><?= htmlspecialchars($news['ad_size']) ?></td>
                                                     <td><?= htmlspecialchars($news['contact']) ?></td>
                                                     <td><?= htmlspecialchars($news['remarks']) ?></td>
+                                                    <td>
+                                                        <?php if (!empty($news['invoice_file'])): ?>
+                                                            <a href="../../uploads/newspaper_invoices/<?= htmlspecialchars($news['invoice_file']) ?>" target="_blank" class="btn btn-sm btn-info">View Invoice</a>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">No Invoice</span>
+                                                        <?php endif; ?>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -520,6 +571,13 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                                 <tr>
                                                     <td><?= htmlspecialchars($bill['agency_name']) ?></td>
                                                     <?php if ($showPrice): ?><td><?= htmlspecialchars($bill['cost']) ?></td><?php endif; ?>
+                                                    <td>
+                                                        <?php if (!empty($bill['invoice_file'])): ?>
+                                                            <a href="../../uploads/billboard_invoices/<?= htmlspecialchars($bill['invoice_file']) ?>" target="_blank" class="btn btn-sm btn-info">View Invoice</a>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">No Invoice</span>
+                                                        <?php endif; ?>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -543,6 +601,13 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                                 <tr>
                                                     <td><?= htmlspecialchars($fb['name']) ?></td>
                                                     <?php if ($showPrice): ?><td><?= htmlspecialchars($fb['cost']) ?></td><?php endif; ?>
+                                                    <td>
+                                                        <?php if (!empty($fb['invoice_file'])): ?>
+                                                            <a href="../../uploads/facebook_invoices/<?= htmlspecialchars($fb['invoice_file']) ?>" target="_blank" class="btn btn-sm btn-info">View Invoice</a>
+                                                        <?php else: ?>
+                                                            <span class="text-muted">No Invoice</span>
+                                                        <?php endif; ?>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -570,9 +635,7 @@ $totalMarketingExpense += floatval($stmt->fetchColumn());
                                                     <?php if ($showPrice): ?><td><?= htmlspecialchars($insta['cost']) ?></td><?php endif; ?>
                                                     <td>
                                                         <?php if (!empty($insta['invoice_file'])): ?>
-                                                            <a href="../../uploads/instagram_invoices/<?= htmlspecialchars($insta['invoice_file']) ?>" target="_blank">
-                                                                View Invoice
-                                                            </a>
+                                                            <a href="../../uploads/instagram_invoices/<?= htmlspecialchars($insta['invoice_file']) ?>" target="_blank" class="btn btn-sm btn-info">View Invoice</a>
                                                         <?php else: ?>
                                                             <span class="text-muted">No Invoice</span>
                                                         <?php endif; ?>

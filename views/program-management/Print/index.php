@@ -103,57 +103,34 @@ $marketing['account'] = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Calculate total marketing expense for display
 $totalMarketingExpense = 0;
-foreach ($marketing as $type => $details) {
-  if (is_array($details)) {
-    foreach ($details as $detail) {
-      if (isset($detail['cost'])) {
-        $totalMarketingExpense += $detail['cost'];
-      }
-    }
-  } elseif (isset($details['cost'])) {
-    $totalMarketingExpense += $details['cost'];
-  }
-}
-?>
-<?php
-$totalMarketingExpense = 0;
-
-// Billboard Advertisements
 $stmt = $pdo->prepare("SELECT SUM(cost) FROM billboard_advertisements WHERE program_id = ?");
 $stmt->execute([$programId]);
 $totalMarketingExpense += floatval($stmt->fetchColumn());
 
-// Facebook Advertisements
 $stmt = $pdo->prepare("SELECT SUM(cost) FROM facebook_advertisements WHERE program_id = ?");
 $stmt->execute([$programId]);
 $totalMarketingExpense += floatval($stmt->fetchColumn());
 
-// Instagram Advertisements
 $stmt = $pdo->prepare("SELECT SUM(cost) FROM instagram_advertisements WHERE program_id = ?");
 $stmt->execute([$programId]);
 $totalMarketingExpense += floatval($stmt->fetchColumn());
 
-// Newspaper Advertisements
 $stmt = $pdo->prepare("SELECT SUM(cost) FROM newspaper_advertisements WHERE program_id = ?");
 $stmt->execute([$programId]);
 $totalMarketingExpense += floatval($stmt->fetchColumn());
 
-// Radio Advertisements
 $stmt = $pdo->prepare("SELECT SUM(cost) FROM radio_advertisements WHERE program_id = ?");
 $stmt->execute([$programId]);
 $totalMarketingExpense += floatval($stmt->fetchColumn());
 
-// Television Advertisements
 $stmt = $pdo->prepare("SELECT SUM(cost) FROM television_advertisements WHERE program_id = ?");
 $stmt->execute([$programId]);
 $totalMarketingExpense += floatval($stmt->fetchColumn());
 
-// Pamphlet Details (designer, printing, distribution costs)
 $stmt = $pdo->prepare("SELECT SUM(pamphlet_designer_cost) + SUM(pamphlet_printing_cost) + SUM(pamphlet_distribution_cost) FROM program_pamphlets WHERE program_id = ?");
 $stmt->execute([$programId]);
 $totalMarketingExpense += floatval($stmt->fetchColumn());
 
-// Other Marketing Details (all cost fields)
 $stmt = $pdo->prepare("
     SELECT 
         COALESCE(SUM(literature_cost),0) +
@@ -166,17 +143,21 @@ $stmt = $pdo->prepare("
     WHERE program_id = ?
 ");
 $stmt->execute([$programId]);
-$totalMarketingExpense += floatval($stmt->fetchColumn()); ?>
+$totalMarketingExpense += floatval($stmt->fetchColumn());
+
+// Fetch actual participant count for this program
+$stmt = $pdo->prepare("SELECT COUNT(*) FROM participants WHERE program_id = ?");
+$stmt->execute([$programId]);
+$actualParticipantCount = $stmt->fetchColumn();
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Program Print</title>
   <link rel="stylesheet" href="style.css" type="text/css" media="all" />
 </head>
-
 <body>
   <div>
     <!-- Header Section -->
@@ -236,12 +217,10 @@ $totalMarketingExpense += floatval($stmt->fetchColumn()); ?>
                     $startDate = $startDateTime->format('F j, Y');
                     $endDate = $endDateTime->format('F j, Y');
                     if ($startDate === $endDate) {
-                      // Same day: show one date, both times
                       $startTime = $startDateTime->format('g:i A');
                       $endTime = $endDateTime->format('g:i A');
                       echo "<p class='whitespace-nowrap'>Date & Time: {$startDate} • {$startTime} - {$endTime}</p>";
                     } else {
-                      // Different days: show both
                       echo "<p class='whitespace-nowrap'>Start Date & Time: {$startDateTime->format('F j, Y • g:i A')}</p>";
                       echo "<p class='whitespace-nowrap'>End Date & Time: {$endDateTime->format('F j, Y • g:i A')}</p>";
                     }
@@ -250,7 +229,7 @@ $totalMarketingExpense += floatval($stmt->fetchColumn()); ?>
                   }
                   ?>
                   <p>Instructor: <?= htmlspecialchars($program['instructor_name']) ?></p>
-                  <p>Participants: <?= $program['current_participants'] ?> / <?= $program['max_participants'] ?> enrolled</p>
+                  <p>Participants: <?= $actualParticipantCount ?> / <?= $program['max_participants'] ?> enrolled</p>
                   <?php if (!empty($program['marketing_methods'])): ?>
                     <p>Marketing Methods: <?= htmlspecialchars($program['marketing_methods']) ?></p>
                   <?php endif; ?>
@@ -603,5 +582,128 @@ $totalMarketingExpense += floatval($stmt->fetchColumn()); ?>
     };
   </script>
 </body>
-
 </html>
+
+<!-- List All Invoices After Full Details -->
+<div class="px-14 py-10 text-sm text-neutral-700">
+  <p class="font-bold text-left">All Marketing Invoices</p>
+  <table class="w-full border-collapse border-spacing-0">
+    <thead>
+      <tr>
+        <td class="border-b-2 border-main pb-3 pl-3 font-bold text-main">Type</td>
+        <td class="border-b-2 border-main pb-3 pl-2 font-bold text-main">Description</td>
+        <td class="border-b-2 border-main pb-3 pl-2 font-bold text-main">Invoice</td>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Pamphlet Invoices -->
+      <?php foreach ($marketing['pamphlets'] as $pamphlet): ?>
+        <?php if (!empty($pamphlet['pamphlet_designer_invoice'])): ?>
+          <tr>
+            <td>Pamphlet Designer</td>
+            <td><?= htmlspecialchars($pamphlet['pamphlet_designer_name']) ?></td>
+            <td>
+              <a href="../../../uploads/pamphlets/<?= htmlspecialchars($pamphlet['pamphlet_designer_invoice']) ?>" target="_blank">View Invoice</a>
+            </td>
+          </tr>
+        <?php endif; ?>
+        <?php if (!empty($pamphlet['pamphlet_printing_invoice'])): ?>
+          <tr>
+            <td>Pamphlet Printing</td>
+            <td><?= htmlspecialchars($pamphlet['pamphlet_printer_name']) ?></td>
+            <td>
+              <a href="../../../uploads/pamphlets/<?= htmlspecialchars($pamphlet['pamphlet_printing_invoice']) ?>" target="_blank">View Invoice</a>
+            </td>
+          </tr>
+        <?php endif; ?>
+        <?php if (!empty($pamphlet['pamphlet_distribution_invoice'])): ?>
+          <tr>
+            <td>Pamphlet Distribution</td>
+            <td><?= htmlspecialchars($pamphlet['pamphlet_distributor_name']) ?></td>
+            <td>
+              <a href="../../../uploads/pamphlets/<?= htmlspecialchars($pamphlet['pamphlet_distribution_invoice']) ?>" target="_blank">View Invoice</a>
+            </td>
+          </tr>
+        <?php endif; ?>
+      <?php endforeach; ?>
+
+      <!-- Radio Invoices -->
+      <?php foreach ($marketing['radio'] as $radio): ?>
+        <?php if (!empty($radio['invoice_file'])): ?>
+          <tr>
+            <td>Radio Advertisement</td>
+            <td><?= htmlspecialchars($radio['name']) ?></td>
+            <td>
+              <a href="../../../uploads/radio_invoices/<?= htmlspecialchars($radio['invoice_file']) ?>" target="_blank">View Invoice</a>
+            </td>
+          </tr>
+        <?php endif; ?>
+      <?php endforeach; ?>
+
+      <!-- Television Invoices -->
+      <?php foreach ($marketing['television'] as $tv): ?>
+        <?php if (!empty($tv['invoice_file'])): ?>
+          <tr>
+            <td>Television Advertisement</td>
+            <td><?= htmlspecialchars($tv['name']) ?></td>
+            <td>
+              <a href="../../../uploads/television_invoices/<?= htmlspecialchars($tv['invoice_file']) ?>" target="_blank">View Invoice</a>
+            </td>
+          </tr>
+        <?php endif; ?>
+      <?php endforeach; ?>
+
+      <!-- Newspaper Invoices -->
+      <?php foreach ($marketing['newspaper'] as $news): ?>
+        <?php if (!empty($news['invoice_file'])): ?>
+          <tr>
+            <td>Newspaper Advertisement</td>
+            <td><?= htmlspecialchars($news['name']) ?></td>
+            <td>
+              <a href="../../../uploads/newspaper_invoices/<?= htmlspecialchars($news['invoice_file']) ?>" target="_blank">View Invoice</a>
+            </td>
+          </tr>
+        <?php endif; ?>
+      <?php endforeach; ?>
+
+      <!-- Billboard Invoices -->
+      <?php foreach ($marketing['billboard'] as $bill): ?>
+        <?php if (!empty($bill['invoice_file'])): ?>
+          <tr>
+            <td>Billboard Advertisement</td>
+            <td><?= htmlspecialchars($bill['agency_name']) ?></td>
+            <td>
+              <a href="../../../uploads/billboard_invoices/<?= htmlspecialchars($bill['invoice_file']) ?>" target="_blank">View Invoice</a>
+            </td>
+          </tr>
+        <?php endif; ?>
+      <?php endforeach; ?>
+
+      <!-- Facebook Invoices -->
+      <?php foreach ($marketing['facebook'] as $fb): ?>
+        <?php if (!empty($fb['invoice_file'])): ?>
+          <tr>
+            <td>Facebook Advertisement</td>
+            <td><?= htmlspecialchars($fb['name']) ?></td>
+            <td>
+              <a href="../../../uploads/facebook_invoices/<?= htmlspecialchars($fb['invoice_file']) ?>" target="_blank">View Invoice</a>
+            </td>
+          </tr>
+        <?php endif; ?>
+      <?php endforeach; ?>
+
+      <!-- Instagram Invoices -->
+      <?php foreach ($marketing['instagram'] as $insta): ?>
+        <?php if (!empty($insta['invoice_file'])): ?>
+          <tr>
+            <td>Instagram Advertisement</td>
+            <td><?= htmlspecialchars($insta['name']) ?></td>
+            <td>
+              <a href="../../../uploads/instagram_invoices/<?= htmlspecialchars($insta['invoice_file']) ?>" target="_blank">View Invoice</a>
+            </td>
+          </tr>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>

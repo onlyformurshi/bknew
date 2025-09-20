@@ -220,8 +220,7 @@ try {
                     <div class="card-header d-flex justify-content-center mt-3">
                         Programs
                         <div class="btn-actions-pane-right">
-                            <button class="btn btn-info mr-2" data-toggle="modal" data-target="#importModal">📂 Import</button>
-
+                            <button class="btn btn-warning mr-2" id="exportExcelBtn">⬇ Export to Excel</button>
                             <?php if ($canadd): ?>
                                 <a href="add.php" class="btn btn-success">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Add New Program
@@ -358,7 +357,8 @@ try {
     regionals.regional_name,
     countries.country_name,
     (SELECT MIN(session_start) FROM program_sessions_times WHERE program_id = programs.id) AS session_start_min,
-    (SELECT MAX(session_end) FROM program_sessions_times WHERE program_id = programs.id) AS session_end_max
+    (SELECT MAX(session_end) FROM program_sessions_times WHERE program_id = programs.id) AS session_end_max,
+    (SELECT COUNT(*) FROM participants WHERE program_id = programs.id) AS participant_count
 FROM programs 
 LEFT JOIN centres ON programs.centre_id = centres.id
 LEFT JOIN regionals ON programs.regional_id = regionals.id
@@ -387,8 +387,8 @@ LIMIT :limit OFFSET :offset";
                                         $blockColor = $isActive ? 'text-warning' : 'text-success';
                                         $statusBadge = $isActive ? 'badge-success' : 'badge-danger';
 
-                                        // Participants display
-                                        $participantsDisplay = $row['current_participants'] . '/' . $row['max_participants'];
+                                        // Participants display: use actual count from participants table
+                                        $participantsDisplay = $row['participant_count'] . '/' . $row['max_participants'];
                                 ?>
                                         <tr id="row-<?= $row['id'] ?>">
                                             <td class="text-center text-muted"><?= $counter ?></td>
@@ -652,6 +652,12 @@ LIMIT :limit OFFSET :offset";
                     window.history.replaceState({}, document.title, url.toString());
                 });
             }
+
+            $("#exportExcelBtn").click(function() {
+    // Build query string from current filters
+    const params = new URLSearchParams(window.location.search);
+    window.open("export.php?" + params.toString(), "_blank");
+});
         });
 
         function editProgram(id) {
