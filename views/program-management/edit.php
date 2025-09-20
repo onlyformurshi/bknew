@@ -251,11 +251,17 @@ if ($id) {
                                                     <label>Start Date & Time</label>
                                                     <input type="datetime-local" class="form-control" name="session_start[]" required
                                                         value="<?= date('Y-m-d\TH:i', strtotime($session['session_start'])) ?>">
+                                                    <small class="text-muted">
+                                                        <?= date('d/m/Y H:i', strtotime($session['session_start'])) ?>
+                                                    </small>
                                                 </div>
                                                 <div class="col-md-3 mb-2">
                                                     <label>End Date & Time</label>
                                                     <input type="datetime-local" class="form-control" name="session_end[]" required
                                                         value="<?= date('Y-m-d\TH:i', strtotime($session['session_end'])) ?>">
+                                                    <small class="text-muted">
+                                                        <?= date('d/m/Y H:i', strtotime($session['session_end'])) ?>
+                                                    </small>
                                                 </div>
                                                 <div class="col-md-2 mb-2 d-flex">
                                                     <button type="button" class="btn btn-success btn-sm mr-2 add-session">+</button>
