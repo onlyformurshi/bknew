@@ -276,7 +276,7 @@ if ($id) {
                                                 <input type="text" class="form-control" name="session_name[]" placeholder="Session Name" required>
                                             </div>
                                             <div class="col-md-3 mb-2">
-                                                <label>Start Date & Time</label>
+                                                <label>Starts Date & Time</label>
                                                 <input type="datetime-local" class="form-control" name="session_start[]" required>
                                             </div>
                                             <div class="col-md-3 mb-2">
